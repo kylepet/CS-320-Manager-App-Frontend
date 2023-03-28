@@ -1,0 +1,11 @@
+{
+  "name": "cs-320-manager-app-frontend",
+  "version": "0.0.1",
+  "main": "main.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "4.18.2"
+  }
+}
