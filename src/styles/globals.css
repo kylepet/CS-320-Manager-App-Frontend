@@ -1,159 +1,213 @@
 :root {
-  --left: ;
-  --top: ;
-  --height: ;
-  --width: ;
-  --padding-left: ;
-  --padding-right: ;
-  --padding-top: ;
-  --padding-bottom: ;
-  --text-size: ;
-  --font-size: ;
-  --text-len: 11;
-  --fname-lbox: ;
-  --fname-tbox: ;
-  --field-box-height: ;
-  --field-text-size: ;
-  --side-padding: ;
-  --top-bottom-padding: ;
-  --ibox-height: ;
-  --ibox-width: ;
-  --fname-ilbox: ;
-  --fname-itbox: ;
-  --lname-lbox: ;
-  --lname-tbox: ;
-  --lname-itbox: ;
-  --email-lbox: ;
-  --email-tbox: ;
-  --email-ilbox: ;
-  --email-itbox: ;
-  --YoG-lbox: ;
-  --YoG-tbox: ;
-  --YoG-ilbox: ;
-  --YoG-itbox: ;
-  --submit-tpos: ;
-  --submit-height: ;
-  --submit-width: ;
+
 }
 
 body{
-  background-color: #baf3ff;
+    background-color: #1491cb;
 }
 
 .box {
-  border-radius: 25px;
-  border: 3px solid black;
-  color:white
+    border-radius: 25px;
+    border: 3px solid black;
+    color:white
 }
 
 
 .title_box {
-  left: var(--left);
-  top: var(--top);
-  height: var(--height);
-  width: var(--width);
-  position:fixed;
-  background-color:white;
-  padding-top: var(--padding-top);
+    left: 20%;
+    top: 10%;
+    height: 10%;
+    width: 60%;
+    position:fixed;
+    background-color:white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 2.5%;
+    padding-bottom: 1%;
 }
 
 .field_box {
-  background-color: #F446E3;
-  height: var(--field-box-height);
-  border: 1px solid black;
-  border-radius: 25px;
-  padding-left: var(--side-padding);
-  padding-right: var(--side-padding);
-  padding-top: var(--top-bottom-padding);
-  padding-bottom: var(--top-bottom-padding);
+    background-color: #F446E3;
+    border-radius: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: min(1vh, .3vw);
+}
+
+.bullet {
+    background-color: white;
+    height: min(5vh, 2vw);
+    width: min(5vh, 2vw);
+    border-radius: 50%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inner_ellipse{
+    background-color: #AA1AB7;
+    height: min(4vh, 1vw);
+    width: min(4vh, 1vw);
+    border-radius: 50%;
+    position: fixed;
 }
 
 #fname_box {
-  left: var(--fname-lbox);
-  top: var(--fname-tbox);
-  position: fixed;
-
+    left: 5vw;
+    top: 33vh;
+    position: fixed;
 }
 
 #lname_box { 
-  left: var(--lname-lbox);
-  top: var(--lname-tbox);
-  position: fixed;
+    left: 65vw;
+    top: 33vh;
+    position: fixed;
 }
 
 #email_box {
-  left: var(--email-lbox);
-  top: var(--email-tbox);
-  position: fixed;
+    left: 5vw;
+    top: 55vh;
+    position: fixed;
 }
 
 #YoG_box {
-  left: var(--YoG-lbox);
-  top: var(--YoG-tbox);
-  position: fixed;
+    left: 65vw;
+    top: 55vh;
+    position: fixed;
+}
+
+#previous_box {
+    left: 5vw;
+    top: 77vh;
+    position: fixed;
+}
+
+#previous_grade {
+    left: 65vw;
+    top: 77vh;
+    position: fixed;
 }
 
 #submit_button_container {
-  text-align: center;
-  top: var(--submit-tpos);
-  position: relative;
+    text-align: center;
+    top: 85vh;
+    position: relative;
+}
+
+#fname_bullet {
+    left: 2vw;
+    top: 41.5vh;
+}
+
+#lname_bullet {
+    left: 62vw;
+    top: 41.5vh;
+}
+
+#email_bullet {
+    left: 2vw;
+    top: 63.5vh;
+}
+
+#YoG_bullet {
+    left: 62vw;
+    top: 63.5vh;
+}
+
+#previously_taken_bullet {
+    left: 2vw;
+    top: 85.5vh;
+}
+
+#previous_grade_bullet {
+    left: 62vw;
+    top: 85.5vh;
 }
 
 .field_box_text {
-  color: white;
-  font-size: var(--field-text-size);
+    color: white;
+    font-size: min(6vh, 3vw);
 }
 
 .title_box_text {
-  text-align: center;
-  font-size: var(--font-size);
-  color: black;
-  font-style: "Plex Sans";
-  font-weight: bold;
+    text-align: center;
+    font-size: max(5vmin, 15px);
+    color: black;
+    font-style: "Plex Sans";
+    font-weight: bold;
 }
 
 
 .text-input {
-  position: fixed;
-  height: var(--ibox-height);
-  width: var(--ibox-width);
-  stroke: 5px;
-  border-radius: 10%;
+    position: fixed;
+    height: 6vh;
+    width: 30vw;
+    stroke: 5px;
+    border-radius: 10px;
+}
+
+.checkbox {
+    position: fixed;
+    height: 6vh;
+    width: 6vh;
+    border-radius: 30px;
 }
 
 #fname {
-  left: var(--fname-ilbox);
-  top: var(--fname-itbox);
+    left: 5vw;
+    top: 40.5vh;
 }
 
 #lname {
-  left: var(--fname-ilbox);
-  top: var(--lname-itbox);
+    left: 65vw;
+    top: 40.5vh;
 }
 
 #email {
-  left: var(--email-ilbox);
-  top: var(--email-itbox);
+    left: 5vw;
+    top: 62.5vh;
 }
 
 #YoG {
-  left: var(--YoG-ilbox);
-  top: var(--YoG-itbox);
+    left: 65vw;
+    top: 62.5vh;
+}
+
+
+#checkbox {
+    left: 5vw;
+    top: 84.5vh;
+}
+
+#grade {
+    position: fixed;
+    width: 10vw;
+    height: 6vw;
+    border-radius: 10px;
+    stroke: 10px;
+    left: 65vw;
+    top: 84.5vh;
+    font-size: min(10vw, 6vh);
 }
 
 
 
 #submit {
-  height: var(--submit-height);
-  background-color: #F446E3;
-  border-radius: 25px;
+    height: 7vh;
+    background-color: #F446E3;
+    border-radius: 25px;
 }
 
 #submit:hover {
-  background-color: #FFB6C1;
+    background-color: #FFB6C1;
+}
+
+#submit:active {
+    background-color: purple;
 }
 
 input
 {
-  font-size: var(--field-text-size);
+    font-size: 5vh;
 }
