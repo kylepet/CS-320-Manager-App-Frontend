@@ -1,0 +1,159 @@
+:root {
+  --left: ;
+  --top: ;
+  --height: ;
+  --width: ;
+  --padding-left: ;
+  --padding-right: ;
+  --padding-top: ;
+  --padding-bottom: ;
+  --text-size: ;
+  --font-size: ;
+  --text-len: 11;
+  --fname-lbox: ;
+  --fname-tbox: ;
+  --field-box-height: ;
+  --field-text-size: ;
+  --side-padding: ;
+  --top-bottom-padding: ;
+  --ibox-height: ;
+  --ibox-width: ;
+  --fname-ilbox: ;
+  --fname-itbox: ;
+  --lname-lbox: ;
+  --lname-tbox: ;
+  --lname-itbox: ;
+  --email-lbox: ;
+  --email-tbox: ;
+  --email-ilbox: ;
+  --email-itbox: ;
+  --YoG-lbox: ;
+  --YoG-tbox: ;
+  --YoG-ilbox: ;
+  --YoG-itbox: ;
+  --submit-tpos: ;
+  --submit-height: ;
+  --submit-width: ;
+}
+
+body{
+  background-color: #baf3ff;
+}
+
+.box {
+  border-radius: 25px;
+  border: 3px solid black;
+  color:white
+}
+
+
+.title_box {
+  left: var(--left);
+  top: var(--top);
+  height: var(--height);
+  width: var(--width);
+  position:fixed;
+  background-color:white;
+  padding-top: var(--padding-top);
+}
+
+.field_box {
+  background-color: #F446E3;
+  height: var(--field-box-height);
+  border: 1px solid black;
+  border-radius: 25px;
+  padding-left: var(--side-padding);
+  padding-right: var(--side-padding);
+  padding-top: var(--top-bottom-padding);
+  padding-bottom: var(--top-bottom-padding);
+}
+
+#fname_box {
+  left: var(--fname-lbox);
+  top: var(--fname-tbox);
+  position: fixed;
+
+}
+
+#lname_box { 
+  left: var(--lname-lbox);
+  top: var(--lname-tbox);
+  position: fixed;
+}
+
+#email_box {
+  left: var(--email-lbox);
+  top: var(--email-tbox);
+  position: fixed;
+}
+
+#YoG_box {
+  left: var(--YoG-lbox);
+  top: var(--YoG-tbox);
+  position: fixed;
+}
+
+#submit_button_container {
+  text-align: center;
+  top: var(--submit-tpos);
+  position: relative;
+}
+
+.field_box_text {
+  color: white;
+  font-size: var(--field-text-size);
+}
+
+.title_box_text {
+  text-align: center;
+  font-size: var(--font-size);
+  color: black;
+  font-style: "Plex Sans";
+  font-weight: bold;
+}
+
+
+.text-input {
+  position: fixed;
+  height: var(--ibox-height);
+  width: var(--ibox-width);
+  stroke: 5px;
+  border-radius: 10%;
+}
+
+#fname {
+  left: var(--fname-ilbox);
+  top: var(--fname-itbox);
+}
+
+#lname {
+  left: var(--fname-ilbox);
+  top: var(--lname-itbox);
+}
+
+#email {
+  left: var(--email-ilbox);
+  top: var(--email-itbox);
+}
+
+#YoG {
+  left: var(--YoG-ilbox);
+  top: var(--YoG-itbox);
+}
+
+
+
+#submit {
+  height: var(--submit-height);
+  background-color: #F446E3;
+  border-radius: 25px;
+}
+
+#submit:hover {
+  background-color: #FFB6C1;
+}
+
+input
+{
+  font-size: var(--field-text-size);
+}
