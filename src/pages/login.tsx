@@ -4,20 +4,16 @@ import styles from '@/styles/Local.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Local() {
+export default function Login() {
   return (
     <>
       <Head>
-        <title>CS320 Geocities Login GUI something</title>
+        <title>CS320 Geocities Login GUI</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main className={styles.main}>
       <div className= "col -md-6 no no-gutters">
             <div className={styles.leftside}>
-                {/* <div class = squareTopLeft></div>
-                <div class = squareBottomRight></div>
-                <div class = squareTopLeftGreen></div>
-                <div class = squareBottomRightGreen></div> */}
                     <div className = {styles.wrapper}>
                         <h2>Sign In</h2>
                         <br />
