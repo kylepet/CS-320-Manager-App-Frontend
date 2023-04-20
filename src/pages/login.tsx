@@ -1,23 +1,18 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import styles from '@/styles/login.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
   <>
+  <main className={styles.body}>
   <p>
-    <title>CS320 Geocities Login GUI something</title>
-    <link rel="stylesheet" href="./main.css" />
-    <link rel="stylesheet" href="./local.css" />
+    <title>CS320 Geocities Login GUI</title>
   </p>
   <div className="col -md-6 no no-gutters">
     <div className="leftside">
-      {/* <div class = squareTopLeft></div>
-          <div class = squareBottomRight></div>
-          <div class = squareTopLeftGreen></div>
-          <div class = squareBottomRightGreen></div> */}
       <div className="wrapper">
         <h2>Sign In</h2>
         <br />
@@ -48,6 +43,7 @@ export default function Home() {
     </div>
   </div>
   <p />
+  </main>
 </>
   )
 }
