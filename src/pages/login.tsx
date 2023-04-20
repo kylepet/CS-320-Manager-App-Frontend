@@ -7,11 +7,6 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   return (
   <>
-  {/* Hello world */}
-  <div className="awesome" style={{ border: "1px solid red" }}>
-    <label htmlFor="name">Enter your name: </label>
-    <input type="text" id="name" />
-  </div>
   <p>
     <title>CS320 Geocities Login GUI something</title>
     <link rel="stylesheet" href="./main.css" />
@@ -28,7 +23,7 @@ export default function Home() {
         <br />
         <div className="username">
           <h3>Username:</h3>
-          <label for = "myUsername"> Username</label>
+          <label htmlFor = "myUsername"> Username</label>
           <textarea
             id="myUsername"
             className="non-preview"
@@ -38,15 +33,14 @@ export default function Home() {
         </div>
         <div className="password">
           <h3>Password:</h3>
-          <label for = "myPassword"> Password</label>
+          <label htmlFor = "myPassword"> Password</label>
           <textarea
-            type = "text"
             id="myPassword"
             className="non-preview"
             defaultValue={""}
             />
         </div>
-        <button id="myBtn" className="button button1" onClick="fun1()">
+        <button id="myBtn" className="button button1">
           {" "}
           Click Here!
         </button>
