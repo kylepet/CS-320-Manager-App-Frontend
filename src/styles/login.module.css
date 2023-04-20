@@ -27,7 +27,7 @@
     color: white;
   }
   
-  body {
+  .body {
       background-color:#1491cb;
       /* #baf3ff;*/
       color: black;
@@ -69,13 +69,13 @@
       border-radius: 5px;
   }
   
-  p {
+  .p {
     text-indent: 50px;
     font-family: Georgia, 'Times New Roman', Times, serif;;
   }
 
 
-  h1{
+  .h1{
       color: white;
       font-size: 28px;
       text-align: center;
@@ -128,13 +128,13 @@
       color: black;
   }
   
-  textarea :is(:focus, :valid){
+  .textarea :is(:focus, :valid){
       border-color: #4671EA;
       border-width: 2px;
       padding: 10px;
   }
   
-  textarea::-webkit-scrollbar{
+  .textarea::-webkit-scrollbar{
       width: 0px;
   }
 
