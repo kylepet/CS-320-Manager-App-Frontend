@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { useQuery } from "react-query";
-import { sectionDetails } from '../../services/apiStudent';
+import { sectionDetails } from '../../services/apiSection';
 
 const inter = Inter({ subsets: ['latin'] })
 
