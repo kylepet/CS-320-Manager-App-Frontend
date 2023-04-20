@@ -7,8 +7,8 @@ import { sectionDetails } from '../../services/apiStudent';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const studentQuery = useQuery({ queryKey: ["student-details"], queryFn: sectionDetails });
-  console.log(studentQuery);
+  const sections = useQuery({ queryKey: ["student-details"], queryFn: sectionDetails });
+  console.log(sections);
   return (
     <>
       <Head>
