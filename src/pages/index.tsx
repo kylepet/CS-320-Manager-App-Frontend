@@ -1,10 +1,14 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
+import { useQuery } from "react-query";
+import { sectionDetails } from '../../services/apiStudent';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const studentQuery = useQuery({ queryKey: ["student-details"], queryFn: sectionDetails });
+  console.log(studentQuery);
   return (
     <>
       <Head>
