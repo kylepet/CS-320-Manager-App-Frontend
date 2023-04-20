@@ -12,6 +12,9 @@ body{
     color:white
 }
 
+table {
+    border-collapse: collapse;
+}
 
 .title_box {
     left: 20%;
@@ -151,6 +154,8 @@ body{
     position: fixed;
     height: 6vh;
     width: 6vh;
+    padding-right: 6vh;
+    padding-top: 6vh;
     border-radius: 30px;
 }
 
