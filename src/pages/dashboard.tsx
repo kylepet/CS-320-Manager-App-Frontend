@@ -1,12 +1,11 @@
 import Head from 'next/head'
-import { PlusIcon } from '@heroicons/react/24/solid'
+import { ExclamationCircleIcon, PlusIcon } from '@heroicons/react/24/solid'
 import { Button } from "@/components/ui/button"
 import {
     AlertDialog,
     AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
-    AlertDialogDescription,
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
@@ -19,6 +18,7 @@ import {
   } from "@/components/ui/collapsible"  
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Check, Trash } from 'lucide-react'
 
 export default function Dashboard() {
     return (
@@ -63,7 +63,7 @@ export default function Dashboard() {
                 <Collapsible>
                     <CollapsibleTrigger className="w-full block">
                         <div className="flex items-center bg-cyan-400 px-6 py-4 justify-between">
-                            <div className="text-cyan-950">
+                            <div className="text-cyan-950 font-semibold">
                                 Section 59770
                             </div>
                             <div className="w-6 h-6 bg-yellow-200 rounded-full text-cyan-950 font-semibold">
@@ -72,23 +72,31 @@ export default function Dashboard() {
                         </div>
                     </CollapsibleTrigger>
                     <CollapsibleContent>
-                        <div className="px-6 py-2 bg-white">
+                        <div className="px-3 py-3 bg-white">
                             <div>
-                                <span>Times:</span>
-                                <ul>
-                                    <li className="ml-4">TuTh 2:30 PM - 3:45 PM</li>
-                                    <li className="ml-4">W 10:10 AM - 11:00 AM</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <span>Desired # of PMs: 5</span>
-                                <button>Edit</button>
-                            </div>
-                            <div>
-                                <span>Current # of PMs: 2</span>
-                                <ul>
-                                    <li className="ml-4">Michael Jordan</li>
-                                    <li className="ml-4">Wiz Khalifa</li>
+                                <ul className="space-y-2">
+                                <li className="bg-cyan-100 px-3 py-2 rounded flex justify-between items-center">
+                                        <span>Michael Jordan</span>
+                                        <span className="space-x-2">
+                                            <Button size='sm' variant='destructive'>
+                                                <Trash className="h-4 w-4" />
+                                            </Button>
+                                        </span>
+                                    </li>
+                                    <li className="bg-yellow-100 px-3 py-2 rounded flex justify-between items-center">
+                                        <span className="flex justify-between items-center">
+                                            <ExclamationCircleIcon className="h-4 w-4 mr-1 text-yellow-500" />
+                                            Wiz Khalifa
+                                        </span>
+                                        <span className="space-x-2">
+                                            <Button size='sm' variant='subtle'>
+                                                <Check className="h-4 w-4" />
+                                            </Button>
+                                            <Button size='sm' variant='destructive'>
+                                                <Trash className="h-4 w-4" />
+                                            </Button>
+                                        </span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
