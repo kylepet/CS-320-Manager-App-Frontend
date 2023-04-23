@@ -5,7 +5,7 @@ import styles from '@/styles/login.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Login() {
   return (
   <>
   <main className={styles.body}>
@@ -13,30 +13,30 @@ export default function Home() {
     <title>CS320 Geocities Login GUI</title>
   </p>
   <div className="col -md-6 no no-gutters">
-    <div className="leftside">
-      <div className="wrapper">
+    <div className={styles.leftside}>
+      <div className={styles.wrapper}>
         <h2>Sign In</h2>
         <br />
-        <div className="username">
+        <div className={styles.username}>
           <h3>Username:</h3>
-          <label htmlFor = "myUsername"> Username</label>
+          {/* <label htmlFor = "myUsername"> Username</label> */}
           <textarea
-            id="myUsername"
-            className="non-preview"
+            id={styles.myUsername}
+            className = "non-preview"
             defaultValue={""}
           />
           <br />
         </div>
-        <div className="password">
+        <div className={styles.password}>
           <h3>Password:</h3>
-          <label htmlFor = "myPassword"> Password</label>
+          {/* <label htmlFor = "myPassword"> Password</label> */}
           <textarea
-            id="myPassword"
+            id= {styles.myPassword}
             className="non-preview"
             defaultValue={""}
             />
         </div>
-        <button id="myBtn" className="button button1">
+        <button id="myBtn" className={styles.button}>
           {" "}
           Click Here!
         </button>
