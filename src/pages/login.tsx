@@ -3,6 +3,7 @@ import React from 'react';
 import { Inter } from 'next/font/google'
 import styles from '@/styles/login.module.css'
 
+
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Login() {

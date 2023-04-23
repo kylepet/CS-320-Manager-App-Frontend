@@ -2,8 +2,14 @@ import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import Login from './login'
+import { useQuery } from "react-query";
+import { sectionDetails } from '../../services/apiSection';
+
 
 const inter = Inter({ subsets: ['latin'] })
+
+  const sections = useQuery({ queryKey: ["student-details"], queryFn: sectionDetails });
+  console.log(sections);
 
 export default function Home() {
   return (

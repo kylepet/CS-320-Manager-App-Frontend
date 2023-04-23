@@ -157,3 +157,8 @@ input
 {
   font-size: var(--field-text-size);
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
