@@ -8,10 +8,11 @@ import { sectionDetails } from '../../services/apiSection';
 
 const inter = Inter({ subsets: ['latin'] })
 
+
+export default function Home() {
   const sections = useQuery({ queryKey: ["student-details"], queryFn: sectionDetails });
   console.log(sections);
 
-export default function Home() {
   return (
     <Login/>
     // <>
