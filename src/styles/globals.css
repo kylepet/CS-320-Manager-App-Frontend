@@ -216,3 +216,8 @@ input
 {
     font-size: 5vh;
 }
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
