@@ -20,24 +20,23 @@ export default function Login() {
         <br />
         <div className={styles.username}>
           <h3>Username:</h3>
-          {/* <label htmlFor = "myUsername"> Username</label> */}
           <textarea
-            id={styles.myUsername}
+            id = "myUsername"
             className = "non-preview"
             defaultValue={""}
           />
+          {/* <input type="text" name="fname" id="fname" className="text_input"/> */}
           <br />
         </div>
         <div className={styles.password}>
           <h3>Password:</h3>
-          {/* <label htmlFor = "myPassword"> Password</label> */}
           <textarea
-            id= {styles.myPassword}
+            id= "myPassword"
             className="non-preview"
             defaultValue={""}
             />
         </div>
-        <button id="myBtn" className={styles.button}>
+        <button id="myBtn" className= "button_class">
           {" "}
           Click Here!
         </button>
