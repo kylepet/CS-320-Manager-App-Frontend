@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
 import Title_box from '@/components/titlebox'
 import Fname from '@/components/fname'
 import Lname from '@/components/lname'
