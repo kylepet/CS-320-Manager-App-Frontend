@@ -31,12 +31,12 @@ export default function Login() {
         <div className={styles.password}>
           <h3>Password:</h3>
           <textarea
-            id= "myPassword"
+            id = "myPassword"
             className="non-preview"
             defaultValue={""}
             />
         </div>
-        <button id="myBtn" className= "button_class">
+        <button id = "myBtn" className = {styles.button}>
           {" "}
           Click Here!
         </button>
