@@ -16,8 +16,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 
 export default function Home() {
-  const sections = useQuery({ queryKey: ["student-details"], queryFn: sectionDetails });
-  console.log(sections);
+  // const sections = useQuery({ queryKey: ["student-details"], queryFn: sectionDetails });
+  // console.log(sections);
 
   return (
     // <>

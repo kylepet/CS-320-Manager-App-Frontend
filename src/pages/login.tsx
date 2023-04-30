@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React from 'react';
 import { Inter } from 'next/font/google'
 import styles from '@/styles/login.module.css'
+import ThisButton from '@/components/loginbutton';
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -36,10 +37,7 @@ export default function Login() {
             defaultValue={""}
             />
         </div>
-        <button id = "myBtn" className = {styles.button}>
-          {" "}
-          Click Here!
-        </button>
+        <ThisButton />
       </div>
     </div>
   </div>
