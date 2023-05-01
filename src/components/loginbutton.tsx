@@ -2,7 +2,6 @@ import axios from 'axios'
 import { env } from 'process';
 import React from 'react';
 import Cookies from 'js-cookie'
-import { cookies } from 'next/dist/client/components/headers';
 import { useRouter } from 'next/router';
 
 
@@ -10,14 +9,14 @@ export default function ThisButton() {
     const router = useRouter();
     const callAPI = () => {
         axios.post("http://localhost:3000/signin", {
-            email: 'liam.singh@umass.edu',
-            password: 'F1fH9HxRj4sX'
+            email: document.getElementById('myUsername').value,
+            password: document.getElementById('myPassword').value
         })
         .then((response) => {
             console.log(response);
             let data = response.data;
             if (data.hasOwnProperty('success') && !data.success){
-
+                console.log('L bozo wrong password');
             }
             else {
                 Cookies.set('loggedin', data.access_token);
