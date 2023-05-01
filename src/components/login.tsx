@@ -1,4 +1,5 @@
 import axios from 'axios'
+import styles from '@/styles/login.module.css'
 import { env } from 'process';
 
 export default function LoginConnection() {
@@ -17,7 +18,7 @@ export default function LoginConnection() {
     return (
         <>
             <div id="submit_button_container">
-                <button id="myBtn" className="button_class" onClick={callAPI}>Click Here!</button>
+                <button type = "button" id="myBtn" className = {styles.button} onClick={callAPI}> Click Here!</button>
             </div>
         </>
     );

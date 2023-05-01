@@ -16,7 +16,7 @@ export default function Login() {
   <div className="col -md-6 no no-gutters">
     <div className={styles.leftside}>
       <div className={styles.wrapper}>
-        <h2>Sign In</h2>
+        <h2>Sign-In</h2>
         <br />
         <div className={styles.username}>
           <h3>Username:</h3>
@@ -25,7 +25,6 @@ export default function Login() {
             className = "non-preview"
             defaultValue={""}
           />
-          {/* <input type="text" name="fname" id="fname" className="text_input"/> */}
           <br />
         </div>
         <div className={styles.password}>
@@ -36,8 +35,7 @@ export default function Login() {
             defaultValue={""}
             />
         </div>
-        <button id = "myBtn" className = {styles.button}>
-          {" "}
+        <button type='button' id = "myBtn" className = {styles.button}>
           Click Here!
         </button>
       </div>
