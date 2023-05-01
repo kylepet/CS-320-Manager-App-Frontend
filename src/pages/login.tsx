@@ -13,8 +13,8 @@ export default function Login() {
   <p>
     <title>CS320 Geocities Login GUI</title>
   </p>
-  <div className="col -md-6 no no-gutters">
-    <div className={styles.leftside}>
+  {/* <div className="col -md-6 no no-gutters"> */}
+    <div className={styles.center}>
       <div className={styles.wrapper}>
         <h2>Sign-In</h2>
         <br />
@@ -40,7 +40,7 @@ export default function Login() {
         </button>
       </div>
     </div>
-  </div>
+  {/* </div> */}
   <p />
   </main>
 </>

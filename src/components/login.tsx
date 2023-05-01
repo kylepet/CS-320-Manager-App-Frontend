@@ -2,11 +2,14 @@ import axios from 'axios'
 import styles from '@/styles/login.module.css'
 import { env } from 'process';
 
+const usernameField = document.getElementById('myUsername')
+const passwordField = document.getElementById('myUsername')
+
 export default function LoginConnection() {
     const callAPI = () => {
         axios.post("http://localhost:3000/log-in", {
-            Username: document.getElementById('myUsername').value,
-            Password: document.getElementById('myPassowrd').value
+            Username: usernameField,
+            Password: passwordField
         })
         .then((response) => {
             console.log(response);
