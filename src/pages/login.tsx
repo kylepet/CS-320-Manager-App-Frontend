@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React from 'react';
 import { Inter } from 'next/font/google'
 import styles from '@/styles/login.module.css'
+import ThisButton from '@/components/loginbutton';
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -13,16 +14,15 @@ export default function Login() {
   <p>
     <title>CS320 Geocities Login GUI</title>
   </p>
-  <div className="col -md-6 no no-gutters">
-    <div className={styles.leftside}>
+  {/* <div className="col -md-6 no no-gutters"> */}
+    <div className={styles.center}>
       <div className={styles.wrapper}>
-        <h2>Sign In</h2>
+        <h2>Sign-In</h2>
         <br />
         <div className={styles.username}>
           <h3>Username:</h3>
-          {/* <label htmlFor = "myUsername"> Username</label> */}
           <textarea
-            id={styles.myUsername}
+            id = "myUsername"
             className = "non-preview"
             defaultValue={""}
           />
@@ -30,20 +30,16 @@ export default function Login() {
         </div>
         <div className={styles.password}>
           <h3>Password:</h3>
-          {/* <label htmlFor = "myPassword"> Password</label> */}
           <textarea
-            id= {styles.myPassword}
+            id = "myPassword"
             className="non-preview"
             defaultValue={""}
             />
         </div>
-        <button id="myBtn" className={styles.button}>
-          {" "}
-          Click Here!
-        </button>
+        <ThisButton />
       </div>
     </div>
-  </div>
+  {/* </div> */}
   <p />
   </main>
 </>

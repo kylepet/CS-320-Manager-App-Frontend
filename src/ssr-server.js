@@ -3,7 +3,7 @@ const next = require('next')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
-const handle = app.getRequestHandler()
+const handle = app.getRequestHandler() // where is this getRequestHandler in the components files?
 
 
 app.prepare()
@@ -12,6 +12,10 @@ app.prepare()
 
   server.get('*', (req, res) => {
     return handle(req, res)
+  })
+
+  server.get("/call_Login_API", (req, res) => {
+    return handle(req, res) //testing login.tsx
   })
 
 
