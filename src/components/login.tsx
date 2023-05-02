@@ -6,7 +6,7 @@ const usernameField = document.getElementById('myUsername')
 const passwordField = document.getElementById('myUsername')
 
 export default function LoginConnection() {
-    const callAPI = () => {
+    const call_Login_API = () => {
         axios.post("http://localhost:3000/log-in", {
             Username: usernameField,
             Password: passwordField
@@ -21,7 +21,7 @@ export default function LoginConnection() {
     return (
         <>
             <div id="submit_button_container">
-                <button type = "button" id="myBtn" className = {styles.button} onClick={callAPI}> Click Here!</button>
+                <button type = "button" id="myBtn" className = {styles.button} onClick={call_Login_API}> Click Here!</button>
             </div>
         </>
     );
