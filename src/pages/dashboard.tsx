@@ -19,8 +19,17 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Check, Trash } from 'lucide-react'
+import { useQuery } from 'react-query'
+import { getProfile } from '../../services/apiLogin'
+import { sectionDetails, managerPool} from '../../services/apiSection'
 
 export default function Dashboard() {
+    // const profile = useQuery({ queryKey: ["student-details"], queryFn: getProfile });
+    // console.log(profile);
+    // const sections = useQuery({ queryKey: ["student-details"], queryFn: sectionDetails });
+    // console.log(sections);
+    const manager_pool = useQuery({ queryKey: ["student-details"], queryFn: managerPool });
+    console.log(manager_pool);
     return (
       <>
         <Head>
