@@ -3,6 +3,7 @@ import { env } from 'process';
 import React from 'react';
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router';
+import styles from '@/styles/login.module.css'
 
 
 export default function ThisButton() {
@@ -30,7 +31,7 @@ export default function ThisButton() {
     return (
         <>
             <div id="submit_button_container">
-                <button id="myBtn" className="" onClick={callAPI}>Click Here!</button>
+                <button type = "button" id="myBtn" className = {styles.button} onClick={callAPI}>Click Here!</button>
             </div>
         </>
     );
