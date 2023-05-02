@@ -19,8 +19,12 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Check, Trash } from 'lucide-react'
+import { useQuery } from 'react-query'
+import { getProfile } from '../../services/apiLogin'
 
 export default function Dashboard() {
+    const profile = useQuery({ queryKey: ["student-details"], queryFn: getProfile });
+    console.log(profile);
     return (
       <>
         <Head>

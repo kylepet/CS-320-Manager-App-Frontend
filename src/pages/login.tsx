@@ -21,7 +21,8 @@ export default function Login() {
     mutationFn: login,
     onSuccess: async (data: any) => {
       // Invalidate and refetch
-      Cookies.set("access_token", data.token);
+      console.log(data.access_token)
+      Cookies.set("access_token", data.access_token);
       router
         .push({
           pathname: "/dashboard",
