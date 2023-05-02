@@ -5,10 +5,6 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    colors: {
-      'field_box': '#f446e3',
-      'white': '#ffffff'
-    },
     extend: {},
   },
   plugins: [require("tailwindcss-animate")],
