@@ -1,56 +1,10 @@
 
-.button {
-    border: none;
-    color: #47af24;
-    padding: 16px 32px;
-    text-align: center;
+.body {
+    background-color:#1491cb;
+    display: flex; 
     align-items: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    position: relative;
-    top: 360px;
-    left: 180px;
-    border-radius: 5px;
-  }
-  
-  .button1 {
-    background-color: #24afa8;
-    color: white;
-    border: 2px solid #baf3ff;
-  }
-  
-  .button1:hover {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .body {
-      background-color:#1491cb;
-      /* #baf3ff;*/
-      color: black;
-      font-size: medium;
-      display: flex; 
-      align-items: center;
-      justify-content: center;
-      /*these three lines above make the proportions adjust to the screens movement*/
-      /* position: relative; */
-  }
-
-
-  /* .leftside, .rightside {
-      height: 100vh;
-      width: 100%;
-  }
-
-  @media screen and (min-width: 768px){
-      .leftside, rightside{
-      height: 100vh;
-      }
-  } */
+    justify-content: center;
+}
 
   @media screen and (min-width: 768px){
       .body{
@@ -58,7 +12,7 @@
       }
   }
   
-  .leftside{
+  .center{
       height: 90vh;
       width:  90vh;
       background:#1491cb;
@@ -66,7 +20,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* position: static; */
       border-radius: 5px;
   }
   
@@ -75,18 +28,10 @@
     font-family: Georgia, 'Times New Roman', Times, serif;;
   }
 
-
-  .h1{
-      color: white;
-      font-size: 28px;
-      text-align: center;
-      font-family: Georgia, 'Times New Roman', Times, serif;
-  }
-  
   .wrapper{
       width: 500px;
       height: 360px;
-      background:#f252e2;
+      background:#F446E3;
        /*#ef86d7*/
       border-radius: 5px;
       border: 2px solid #baf3ff;
@@ -105,13 +50,6 @@
       color: white;
       font-size: 15px;
       text-align: left;
-      font-family: Georgia, 'Times New Roman', Times, serif;
-  }
-  
-  .wrapper h4{
-      color: white;
-      font-size: 20px;
-      text-align: center;
       font-family: Georgia, 'Times New Roman', Times, serif;
   }
   
@@ -141,7 +79,7 @@
 
   .username{
       position: relative;
-      top: 10px;
+      top: 5px;
       width: 450px;
       align-items: center;
       background:   #24afa8;
@@ -152,7 +90,7 @@
   }
   .password{
       position: relative;
-      top: 30px;
+      top: 25px;
       width: 450px;
       align-items: center;
       background:   #24afa8;
@@ -160,45 +98,29 @@
       border: 2px solid #baf3ff;
       padding: 10px 10px 10px;
   }
+
+  .button {
+    border: none;
+    color: white;
+    background-color: #24afa8;
+    padding: 10px 32px;
+    text-align: center;
+    align-items: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    position: relative;
+    top: 35px;
+    left: 150px;
+    border-radius: 5px;
+    border: 2px solid #baf3ff;
+  }
   
-
-/* .squareTopLeft {
-    height: 150px;
-    width: 150px;
-    background-color: baf3ff;
-    position: absolute;
-    top: 30px;
-    left: 90px;
-    border-radius: 5px;
-}
-
-.squareTopLeftGreen {
-    height: 100px;
-    width: 100px;
-    background-color: #24afa8;
-    position:absolute;
-    top: 0px;
-    left: 0px;
-    border-radius: 5px;
-}
-
-.squareBottomRight {
-    height: 150px;
-    width: 150px;
-    background-color: baf3ff;
-    position: absolute;
-    top: 220px;
-    left: 475px;
-    border-radius: 5px;
-}
-
-.squareBottomRightGreen {
-    height: 100px;
-    width: 100px;
-    background-color: #24afa8;
-    position: absolute;
-    top: 390px;
-    left: 585px;
-    border-radius: 5px;
-}
- */
+  .button:hover {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  /* @tailwind base;
+  @tailwind components;
+  @tailwind utilities; */
