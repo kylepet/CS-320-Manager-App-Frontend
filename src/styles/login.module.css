@@ -99,7 +99,7 @@
       padding: 10px 10px 10px;
   }
 
-  .button {
+  .wrapper button {
     border: none;
     color: white;
     background-color: #24afa8;
@@ -110,8 +110,8 @@
     margin: 4px 2px;
     cursor: pointer;
     position: relative;
-    top: 35px;
-    left: 150px;
+    top: 5px;
+    /* left: 150px; */
     border-radius: 5px;
     border: 2px solid #baf3ff;
   }
