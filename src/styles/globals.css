@@ -1,3 +1,4 @@
+
 :root {
 
 }
@@ -19,14 +20,13 @@ table {
 .title_box {
     left: 20%;
     top: 10%;
-    height: 10%;
     width: 60%;
     position:fixed;
     background-color:white;
     padding-left: 20px;
     padding-right: 20px;
-    padding-top: 2.5%;
-    padding-bottom: 1%;
+    padding-top: 2%;
+    padding-bottom: 2%;
 }
 
 .field_box {
@@ -58,44 +58,45 @@ table {
 
 #fname_box {
     left: 5vw;
-    top: 33vh;
+    bottom: 60vh;
     position: fixed;
 }
 
 #lname_box { 
     left: 65vw;
-    top: 33vh;
+    bottom: 60vh;
     position: fixed;
 }
 
 #email_box {
     left: 5vw;
-    top: 55vh;
+    bottom: 38vh;
     position: fixed;
 }
 
 #YoG_box {
     left: 65vw;
-    top: 55vh;
+    bottom: 38vh;
     position: fixed;
 }
 
 #previous_box {
     left: 5vw;
-    top: 77vh;
+    bottom: 16vh;
     position: fixed;
 }
 
 #previous_grade {
     left: 65vw;
-    top: 77vh;
+    bottom: 16vh;
     position: fixed;
 }
 
 #submit_button_container {
     text-align: center;
     top: 85vh;
-    position: relative;
+    left: 45vw;
+    position: fixed;
 }
 
 #fname_bullet {
@@ -130,7 +131,7 @@ table {
 
 .field_box_text {
     color: white;
-    font-size: min(6vh, 3vw);
+    font-size: min(5.5vh, 2.5vw);
 }
 
 .title_box_text {
@@ -147,6 +148,7 @@ table {
     height: 6vh;
     width: 30vw;
     stroke: 5px;
+    font-size: min(5.5vh, 2.5vw);
     border-radius: 10px;
 }
 
@@ -193,7 +195,7 @@ table {
     stroke: 10px;
     left: 65vw;
     top: 84.5vh;
-    font-size: min(10vw, 6vh);
+    font-size: min(6.5vh, 3.5vw);
 }
 
 
@@ -202,6 +204,7 @@ table {
     height: 7vh;
     background-color: #F446E3;
     border-radius: 25px;
+    width: 10vw;
 }
 
 #submit:hover {
