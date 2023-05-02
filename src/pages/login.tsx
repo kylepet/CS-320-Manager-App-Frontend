@@ -24,7 +24,7 @@ export default function Login() {
       Cookies.set("access_token", data.token);
       router
         .push({
-          pathname: "/student",
+          pathname: "/dashboard",
         })
         .then(() => {
           router.reload();
@@ -92,9 +92,19 @@ export default function Login() {
                   value={password}
                 />
               </div>
-              <ThisButton />
+              <button
+                onClick={handleSubmit}
+                type="button"
+                id="myBtn"
+                className={styles.button}
+              >
+                Click Here!
+              </button>
+              {/* <ThisButton onClick={handleSubmit}/> */}
               {errorMessage && (
-                <h3 style={{color: 'red'}} className="error">{errorMessage}</h3>
+                <h3 style={{ color: "red" }} className="error">
+                  {errorMessage}
+                </h3>
               )}
             </div>
           </div>

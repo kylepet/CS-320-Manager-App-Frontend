@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import styles from "@/styles/login.module.css";
 
-export default function ThisButton() {
+export default function ThisButton(onClick: any) {
   // const router = useRouter();
   // const callAPI = () => {
   //     axios.post("http://localhost:3000/signin", {
@@ -30,7 +30,7 @@ export default function ThisButton() {
   return (
     <div>
       {/* <div id="submit_button_container"> */}
-      <button type="button" id="myBtn" className={styles.button}>
+      <button onClick={onClick} type="button" id="myBtn" className={styles.button}>
         Click Here!
       </button>
       {/* </div> */}
