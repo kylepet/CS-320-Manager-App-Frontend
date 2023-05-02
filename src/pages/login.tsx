@@ -26,9 +26,9 @@ export default function Login() {
         .push({
           pathname: "/dashboard",
         })
-        .then(() => {
-          router.reload();
-        });
+        // .then(() => {
+        //   router.reload();
+        // });
       queryClient.invalidateQueries({ queryKey: ["login"] });
     },
     onError: (error: any) => {
@@ -100,12 +100,12 @@ export default function Login() {
               >
                 Click Here!
               </button>
-              {/* <ThisButton onClick={handleSubmit}/> */}
               {errorMessage && (
-                <h3 style={{ color: "red" }} className="error">
-                  {errorMessage}
-                </h3>
+                <div className={styles.error}><p>
+                  Wrong Username or Password 
+                </p></div>
               )}
+              {/* <ThisButton onClick={handleSubmit}/> */}
             </div>
           </div>
         </form>

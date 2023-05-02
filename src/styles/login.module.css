@@ -12,6 +12,15 @@
       }
   }
   
+  /* .error {
+    background-color: white;
+    margin-top: 10px;
+    width: 50%;
+    /* text-align: center; */
+    /* display: flex;
+    margin-left: auto;
+    margin-right: auto; */
+  /* }  */
   .center{
       height: 90vh;
       width:  90vh;
@@ -30,7 +39,7 @@
 
   .wrapper{
       width: 500px;
-      height: 360px;
+      height: 400px;
       background:#F446E3;
        /*#ef86d7*/
       border-radius: 5px;
@@ -51,6 +60,14 @@
       font-size: 15px;
       text-align: left;
       font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+
+  .wrapper p{
+    /* color: red; */
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
   }
   
   .wrapper input{
