@@ -26,9 +26,9 @@ export default function Login() {
         .push({
           pathname: "/dashboard",
         })
-        // .then(() => {
-        //   router.reload();
-        // });
+        .then(() => {
+          router.reload();
+        });
       queryClient.invalidateQueries({ queryKey: ["login"] });
     },
     onError: (error: any) => {
