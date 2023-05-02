@@ -1,47 +1,48 @@
-import Head from 'next/head'
-import React from 'react';
-import { Inter } from 'next/font/google'
-import styles from '@/styles/login.module.css'
-import ThisButton from '@/components/loginbutton';
+import Head from "next/head";
+import React from "react";
+import { Inter } from "next/font/google";
+import styles from "@/styles/login.module.css";
+import ThisButton from "@/components/loginbutton";
 
-
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Login() {
   return (
-  <>
-  <main className={styles.body}>
-  <p>
-    <title>CS320 Geocities Login GUI</title>
-  </p>
-  {/* <div className="col -md-6 no no-gutters"> */}
-    <div className={styles.center}>
-      <div className={styles.wrapper}>
-        <h2>Sign-In</h2>
-        <br />
-        <div className={styles.username}>
-          <h3>Username:</h3>
-          <textarea
-            id = "myUsername"
-            className = "non-preview"
-            defaultValue={""}
-          />
-          <br />
-        </div>
-        <div className={styles.password}>
-          <h3>Password:</h3>
-          <textarea
-            id = "myPassword"
-            className="non-preview"
-            defaultValue={""}
-            />
-        </div>
-        <ThisButton />
-      </div>
-    </div>
-  {/* </div> */}
-  <p />
-  </main>
-</>
-  )
+    <>
+      <main className={styles.body}>
+        <p>
+          <title>CS320 Geocities Login GUI</title>
+        </p>
+        {/* <div className="col -md-6 no no-gutters"> */}
+        <form>
+          <div className={styles.center}>
+            <div className={styles.wrapper}>
+              <h2>Sign-In</h2>
+              <br />
+              <div className={styles.username}>
+                <h3>Username:</h3>
+                <textarea
+                  id="myUsername"
+                  className="non-preview"
+                  defaultValue={""}
+                />
+                <br />
+              </div>
+              <div className={styles.password}>
+                <h3>Password:</h3>
+                <textarea
+                  id="myPassword"
+                  className="non-preview"
+                  defaultValue={""}
+                />
+              </div>
+              <ThisButton />
+            </div>
+          </div>
+        </form>
+        {/* </div> */}
+        <p />
+      </main>
+    </>
+  );
 }
