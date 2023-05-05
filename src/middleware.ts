@@ -8,7 +8,7 @@ export default async function middleware(req: NextRequest) {
     // let url = req.url;
 
     // if (loginCookie && url === 'http://localhost:8000/') {
-    //     const res = await fetch('http://localhost:3000/allSections', {
+    //     const res = await fetch('http://localhost:3000/sections', {
     //         method: 'GET',
     //         headers: { Authorization: `Bearer ${req.cookies.get('loggedin')?.value}` } 
     //     })
