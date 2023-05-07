@@ -5,29 +5,25 @@ import Fname from '@/components/fname'
 import Lname from '@/components/lname'
 import YOG from '@/components/yog'
 import Previous from '@/components/previous'
-import Email from '@/components/email'
-import Previousgrade from '@/components/previousgrade'
-import Submit from '@/components/submit'
 import { useQuery } from "react-query";
 import { sectionDetails } from '../../services/apiSection';
+import StudentSection from '@/components/sectionStudent'
+import Sections from '@/components/sections'
+import axios from 'axios'
+import { ReactElement, JSXElementConstructor, ReactFragment, useEffect, useMemo, useState } from 'react'
 
-export default function SubmitForm() {
+export default function StudentDashboard(this: any) {
 
     return (
     <>
         <Head>
-            <title>CS320 Form Submission Screen</title>
+            <title>Student Dashboard</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
         <main>
-            <Title_box />
-            <Fname />
-            <Lname />
-            <Email />
-            <YOG />
-            <Previous />
-            <Previousgrade />
-            <Submit />
+            <div className="max-w-lg mx-auto space-y-2">
+                <Sections></Sections>
+            </div>
         </main>
     </>
     )
