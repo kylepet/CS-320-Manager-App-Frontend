@@ -34,13 +34,13 @@ export default function Sections(this: any) {
             section={data.sectionNumber}
             professor={data.professor}
             status={
-              data.enrolled.findIndex((e: any) => e._id === profile.id) !==
+              data.enrolled.findIndex((e: any) => e._id === profile.data.id) !==
               -1 ? (
                 <Accepted />
               ) : data.enrolled.length >= data.cap ? (
                 <Rejected />
               ) : data.applications.findIndex(
-                  (e: any) => e.student._id === profile.id
+                  (e: any) => e.student._id === profile.data.id
                 ) === -1 ? (
                 <NotSubmitted />
               ) : (
