@@ -9,7 +9,7 @@ import NotSubmitted from "./notsubmitted";
 
 export default function Sections(this: any) {
 
-    const [classes, setClasses] = useState({});
+    const [classes, setClasses] = useState([]);
     const [isClassesLoading, setClassesLoading] = useState(true);
     const [profile, setProfile] = useState({id: ''});
     const [isProfileLoading, setProfileLoading] = useState(true); 
@@ -28,6 +28,7 @@ export default function Sections(this: any) {
         })
         .then((response) => {
             let data = response.data;
+            console.log(data);
             setClasses(data);
             setClassesLoading(false);
             //console.log(Cookies.get('access_token'));
@@ -45,6 +46,7 @@ export default function Sections(this: any) {
         .then((response) => {
             setProfile({id: response.data.id});
             setProfileLoading(false);
+            console.log(profile);
         }, (error) => {
             console.log(error);
         });
@@ -56,18 +58,9 @@ export default function Sections(this: any) {
     }
 
     
-    if (classes.reduce((acc: any, e: any) => 
-                        e.applications.findIndex((x: any) => x._id === profile.id) !== -1 
-                        || e.enrolled.findIndex((x: any) => x._id === profile.id) !== -1 ? false : acc, true)){
+    if (classes.length === 0){
         return (
-            <>
-            <div className="max-w-lg mx-auto space-y-2">
-                {classes.map((data: any) => <StudentSection key = {data._id} section = {data.sectionNumber}
-                                                professor = {data.professor} status = {<NotSubmitted />}
-                                            />)}
-            </div>
-        </>
-
+            <div />
         )
     }
 
@@ -76,10 +69,10 @@ export default function Sections(this: any) {
             <div className="max-w-lg mx-auto space-y-2">
                 {classes.map((data: any) => <StudentSection key = {data._id} section = {data.sectionNumber}
                                              professor = {data.professor} status = 
-                                             {
-                                                data.enrolled.length >= data.cap ? data.enrolled.reduce((acc: any, e: any) => e._id === profile.id ? 
-                                                <Accepted /> : acc, <Rejected />) : data.enrolled.reduce((acc: any, e: any) => e._id === profile.id ? 
-                                                <Accepted /> : acc, <Pending />)
+                                             {  data.enrolled.findIndex((e: any) => e._id === profile.id) !== -1 ? <Accepted/> :
+                                                data.enrolled.length >= data.cap ? <Rejected /> : 
+                                                data.applications.findIndex((e: any) => e.student._id === profile.id) === -1  ? 
+                                                <NotSubmitted/> : <Pending />
                                              }/>)}
             </div>
         </>
