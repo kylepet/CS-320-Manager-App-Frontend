@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import { Inter } from "next/font/google";
 import styles from "@/styles/login.module.css";
 import ThisButton from "@/components/loginbutton";
-import { useMutation, useQueryClient } from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { login } from "../../services/apiLogin";
+import {getProfile, login} from "../../services/apiLogin";
+import {sectionDetails} from "../../services/apiSection";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,6 +17,12 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const profile = useQuery({ queryKey: ["student-details"], queryFn: getProfile });
+
+  const studentDashboard = "/studentdashboard"
+  const profDashboard = "/dashboard"
+
+
   const mutation = useMutation({
     // queryKey: ["login"],
     mutationFn: login,
@@ -23,13 +30,26 @@ export default function Login() {
       // Invalidate and refetch
       console.log(data.access_token)
       Cookies.set("access_token", data.access_token);
-      router
-        .push({
-          pathname: "/dashboard",
-        })
-        .then(() => {
-          router.reload();
-        });
+
+      // Check if student or prof
+      if (profile.data.isStudent){
+        router
+            .push({
+              pathname: studentDashboard,
+            })
+            .then(() => {
+              router.reload();
+            });
+      }
+      else {
+        router
+            .push({
+              pathname: profDashboard,
+            })
+            .then(() => {
+              router.reload();
+            });
+      }
       queryClient.invalidateQueries({ queryKey: ["login"] });
     },
     onError: (error: any) => {
