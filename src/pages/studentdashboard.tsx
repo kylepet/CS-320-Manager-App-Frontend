@@ -1,50 +1,58 @@
-import Head from 'next/head'
-import { Cookie, Inter } from 'next/font/google'
-import Title_box from '@/components/titlebox'
-import Fname from '@/components/fname'
-import Lname from '@/components/lname'
-import YOG from '@/components/yog'
-import Previous from '@/components/previous'
+import Head from "next/head";
+import { Cookie, Inter } from "next/font/google";
+import Title_box from "@/components/titlebox";
+import Fname from "@/components/fname";
+import Lname from "@/components/lname";
+import YOG from "@/components/yog";
+import Previous from "@/components/previous";
 import { useQuery } from "react-query";
-import { sectionDetails } from '../../services/apiSection';
-import StudentSection from '@/components/sectionStudent'
-import Sections from '@/components/sections'
-import axios from 'axios'
-import { ReactElement, JSXElementConstructor, ReactFragment, useEffect, useMemo, useState } from 'react'
-import { Button } from '@/components/ui/button'
-import Cookies from 'js-cookie'
-import { useRouter } from 'next/router'
+import { sectionDetails } from "../../services/apiSection";
+import StudentSection from "@/components/sectionStudent";
+import Sections from "@/components/sections";
+import axios from "axios";
+import {
+  ReactElement,
+  JSXElementConstructor,
+  ReactFragment,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { Button } from "@/components/ui/button";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 export default function StudentDashboard(this: any) {
-    const router = useRouter();
-    function logout() {
-        Cookies.remove('access_token');
-        router
-        .push({
-          pathname: "/",
-        });
-    }
+  const router = useRouter();
+  function logout() {
+    Cookies.remove("access_token");
+    router.push({
+      pathname: "/",
+    });
+  }
 
-    return (
+  return (
     <>
-        <Head>
-            <title>Student Dashboard</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-        </Head>
-        <main className='mt-8'>
-            <div className="max-w-lg mx-auto space-y-2">
-                <div className="mb-4 flex justify-between items-center">
-                    <span className="text-lg font-semibold text-cyan-800">Sections</span>
-                <Button variant="outline" onClick={logout}>
-                    <div /> Log-out
-                </Button>
-                </div>
-            </div>
+      <Head>
+        <title>Student Dashboard</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+      <main className="mt-8">
+        <div className="max-w-lg mx-auto space-y-2">
+          <div className="mb-4 flex justify-between items-center">
+            <span className="text-lg font-semibold text-cyan-800">
+              Sections
+            </span>
+            <Button variant="outline" onClick={logout}>
+              <div /> Log-out
+            </Button>
+          </div>
+        </div>
 
-            <div className="max-w-lg mx-auto space-y-2">
-                <Sections></Sections>
-            </div>
-        </main>
+        <div className="max-w-lg mx-auto space-y-2">
+          <Sections></Sections>
+        </div>
+      </main>
     </>
-    )
+  );
 }

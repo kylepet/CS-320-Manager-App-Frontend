@@ -24,8 +24,8 @@ import { getProfile } from '../../services/apiLogin'
 import { sectionDetails, managerPool} from '../../services/apiSection'
 
 export default function Dashboard() {
-    // const profile = useQuery({ queryKey: ["student-details"], queryFn: getProfile });
-    // console.log(profile);
+    const profile = useQuery({ queryKey: ["student-details"], queryFn: getProfile });
+    console.log(profile);
     // const sections = useQuery({ queryKey: ["student-details"], queryFn: sectionDetails });
     // console.log(sections);
     const manager_pool = useQuery({ queryKey: ["student-details"], queryFn: managerPool });

@@ -8,4 +8,4 @@ export const login = async (body: any) => {
 export const getProfile = async () => {
     const response = await request.get(`/profile`);
     return response.data;
-  };
+};
