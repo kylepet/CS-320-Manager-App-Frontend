@@ -11,7 +11,7 @@ import Submit from '@/components/submit'
 import { useQuery } from "react-query";
 import { sectionDetails } from '../../services/apiSection';
 
-export default function SuubmitForm() {
+export default function SubmitForm() {
 
     return (
     <>
