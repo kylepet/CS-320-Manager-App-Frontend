@@ -1,4 +1,21 @@
 import { Button } from "./ui/button";
+import styles from "@/styles/login.module.css";
+import router from "next/router";
+import SubmitForm from "@/pages/submitform";
+
+const submitform = "/submitform"
+
+const onSubmit = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+    router
+    .push({
+      pathname: submitform,
+    })
+    .then(() => {
+      router.reload();
+    });
+  };
+
 
 export default function NotSubmitted() {
     return (
@@ -7,9 +24,14 @@ export default function NotSubmitted() {
                 You haven't submitted an application, submit here: 
             </span>
             <span className="space-x-2">
-                <Button size='sm'>
-                    Submit!
-                </Button>
+            <button
+                onClick={onSubmit}
+                type="button"
+                id="myBtn"
+                className={styles.button}
+              >
+                Click Here!
+              </button>
             </span>
         </li>
 );}
