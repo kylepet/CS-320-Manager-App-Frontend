@@ -28,7 +28,6 @@ export default function SubmitForm() {
             console.log("Completed Submission");
             console.log(data);
             queryClient.invalidateQueries({ queryKey: ["submit"] });
-            
         },
         onError: (error: any) => {
             console.log(error.response.data.message);
@@ -39,12 +38,13 @@ export default function SubmitForm() {
 
     const handleSubmit = (event: { preventDefault: () => void }) => {
         event.preventDefault();
+        //need to change this data to follow user input!!
         return mutation.mutate({
             email: 'isabella.brown@umass.edu',
-            CS320taken: false,
-            references: 'prof sjkdf',
+            CS320taken: true,
+            references: ['prof sjkdf'],
             cs320grade: 'A',
-            preference: '02B'
+            preference: ['02B'],
         });
     };
 
