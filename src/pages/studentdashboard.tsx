@@ -1,10 +1,5 @@
 import Head from "next/head";
 import { Cookie, Inter } from "next/font/google";
-import Title_box from "@/components/titlebox";
-import Fname from "@/components/fname";
-import Lname from "@/components/lname";
-import YOG from "@/components/yog";
-import Previous from "@/components/previous";
 import { useQuery } from "react-query";
 import { sectionDetails } from "../../services/apiSection";
 import StudentSection from "@/components/sectionStudent";
@@ -21,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import SubmissionForm from "@/components/popup";
 
 export default function StudentDashboard(this: any) {
   const router = useRouter();
@@ -50,6 +46,7 @@ export default function StudentDashboard(this: any) {
         </div>
 
         <div className="max-w-lg mx-auto space-y-2">
+          <SubmissionForm></SubmissionForm>
           <Sections></Sections>
         </div>
       </main>
