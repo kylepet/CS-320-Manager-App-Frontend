@@ -1,36 +1,10 @@
 import Head from "next/head";
-import { Cookie, Inter } from "next/font/google";
-import Title_box from "@/components/titlebox";
-import Fname from "@/components/fname";
-import Lname from "@/components/lname";
-import YOG from "@/components/yog";
-import Previous from "@/components/previous";
-import { useQuery } from "react-query";
-import { sectionDetails } from "../../services/apiSection";
-import StudentSection from "@/components/sectionStudent";
 import Sections from "@/components/sections";
-import axios from "axios";
-import {
-  ReactElement,
-  JSXElementConstructor,
-  ReactFragment,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-import { Button } from "@/components/ui/button";
+import Logout from "@/components/logout";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 
 export default function StudentDashboard(this: any) {
-  const router = useRouter();
-  function logout() {
-    Cookies.remove("access_token");
-    router.push({
-      pathname: "/",
-    });
-  }
-
   return (
     <>
       <Head>
@@ -43,9 +17,7 @@ export default function StudentDashboard(this: any) {
             <span className="text-lg font-semibold text-cyan-800">
               Sections
             </span>
-            <Button variant="outline" onClick={logout}>
-              <div /> Log-out
-            </Button>
+            <Logout />
           </div>
         </div>
 
