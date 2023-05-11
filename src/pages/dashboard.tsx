@@ -77,7 +77,10 @@ export default function Dashboard() {
                     <CollapsibleTrigger className="w-full block">
                         <div className="flex items-center bg-cyan-400 px-6 py-4 justify-between">
                             <div className="text-cyan-950 font-semibold">
-                                Section 2B
+                                Section 02B
+                            </div>
+                            <div className = "text-cyan-950 font-semibold justify-stretch">
+                                Enrollment Capacity:
                             </div>
                             <div className="w-6 h-6 bg-yellow-200 rounded-full text-cyan-950 font-semibold">
                                 3
@@ -89,7 +92,7 @@ export default function Dashboard() {
                             <div>
                                 <ul className="space-y-2">
                                 <li className="bg-cyan-100 px-3 py-2 rounded flex justify-between items-center">
-                                        <span>Michael Jordan</span>
+                                        <span>Student 1</span>
                                         <span className="space-x-2">
                                             <Button size='sm' variant='destructive'>
                                                 <Trash className="h-4 w-4" />
@@ -99,7 +102,7 @@ export default function Dashboard() {
                                     <li className="bg-yellow-100 px-3 py-2 rounded flex justify-between items-center">
                                         <span className="flex justify-between items-center">
                                             <ExclamationCircleIcon className="h-4 w-4 mr-1 text-yellow-500" />
-                                            Wiz Khalifa
+                                            Student 2
                                         </span>
                                         <span className="space-x-2">
                                             <Button size='sm' variant='subtle'>
