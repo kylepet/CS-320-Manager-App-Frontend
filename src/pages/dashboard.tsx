@@ -41,7 +41,7 @@ export default function Dashboard() {
             <div className="max-w-lg mx-auto space-y-2">
                 <div className="mb-4 flex justify-between items-center">
                     <span className="text-lg font-semibold text-cyan-800">Your Sections</span>
-                    <div>
+                    <div className="flex justify-between items-center space-x-2">
                         <Logout />
                         <AlertDialog>
                         <AlertDialogTrigger asChild>
