@@ -17,8 +17,6 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const profile = useQuery({ queryKey: ["student-details"], queryFn: getProfile });
-
   const studentDashboard = "/studentdashboard"
   const profDashboard = "/dashboard"
 
@@ -32,7 +30,7 @@ export default function Login() {
       Cookies.set("access_token", data.access_token);
 
       // Check if student or prof
-      if (profile.data.isStudent){
+      if (data.isStudent){
         router
             .push({
               pathname: studentDashboard,
