@@ -14,7 +14,7 @@ import { useState } from 'react'
 import { submit } from '../../services/apiSubmit'
 import styles from "@/styles/login.module.css";
 
-export default function SubmitForm() {
+export default function SubmitForm() { //form to submit function
     const router = useRouter();
     const queryClient = useQueryClient();
     const [errorMessage, setErrorMessage] = useState("");
@@ -25,7 +25,7 @@ export default function SubmitForm() {
     const mutation = useMutation({
         mutationFn: submit,
         onSuccess: async (data: any) => {
-            console.log("Completed Submission");
+            console.log("Completed Submission"); //response on completed app
             console.log(data);
             queryClient.invalidateQueries({ queryKey: ["submit"] });
         },
@@ -39,7 +39,8 @@ export default function SubmitForm() {
     const handleSubmit = (event: { preventDefault: () => void }) => {
         event.preventDefault();
         //need to change this data to follow user input!!
-        return mutation.mutate({
+        //where you input the data from the user
+        return mutation.mutate({ 
             email: 'isabella.brown@umass.edu',
             CS320taken: true,
             references: ['prof sjkdf'],
