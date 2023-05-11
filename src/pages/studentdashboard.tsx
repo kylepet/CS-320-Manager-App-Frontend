@@ -1,8 +1,11 @@
 import Head from "next/head";
 import Sections from "@/components/sections";
 import Logout from "@/components/logout";
+<<<<<<< HEAD
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+=======
+>>>>>>> 1b758325689baad8ca1c2b535939bd3bda4ae90e
 
 export default function StudentDashboard(this: any) {
   return (
