@@ -22,6 +22,7 @@ import { Check, Trash } from 'lucide-react'
 import { useQuery } from 'react-query'
 import { getProfile } from '../../services/apiLogin'
 import { sectionDetails, managerPool} from '../../services/apiSection'
+import Logout from '@/components/logout'
 
 export default function Dashboard() {
     const profile = useQuery({ queryKey: ["student-details"], queryFn: getProfile });
@@ -40,33 +41,36 @@ export default function Dashboard() {
             <div className="max-w-lg mx-auto space-y-2">
                 <div className="mb-4 flex justify-between items-center">
                     <span className="text-lg font-semibold text-cyan-800">Your Sections</span>
-                    <AlertDialog>
-                       <AlertDialogTrigger asChild>
-                            <Button variant="outline">
-                                <PlusIcon className="mr-2 h-4 w-4" /> Create Section
-                            </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>Create Section</AlertDialogTitle>
-                                <div className="space-y-4">
-                                    <div className="text-sm text-cyan-500 dark:text-cyan-400 grid w-full items-center gap-1.5">
-                                        <Label htmlFor="section">Section</Label>
-                                        <Input className="w-full" type="text" id="section" placeholder="" />
-                                    </div>
+                    <div>
+                        <Logout />
+                        <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                                <Button variant="outline">
+                                    <PlusIcon className="mr-2 h-4 w-4" /> Create Section
+                                </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>Create Section</AlertDialogTitle>
+                                    <div className="space-y-4">
+                                        <div className="text-sm text-cyan-500 dark:text-cyan-400 grid w-full items-center gap-1.5">
+                                            <Label htmlFor="section">Section</Label>
+                                            <Input className="w-full" type="text" id="section" placeholder="" />
+                                        </div>
 
-                                    <div className="text-sm text-cyan-500 dark:text-cyan-400 grid w-full items-center gap-1.5">
-                                        <Label htmlFor="todo">TODO</Label>
-                                        <Input className="w-full" type="text" id="todo" placeholder="" />
+                                        <div className="text-sm text-cyan-500 dark:text-cyan-400 grid w-full items-center gap-1.5">
+                                            <Label htmlFor="todo">TODO</Label>
+                                            <Input className="w-full" type="text" id="todo" placeholder="" />
+                                        </div>
                                     </div>
-                                </div>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction>Submit</AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                    </AlertDialog>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                    <AlertDialogAction>Submit</AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
+                    </div>
                 </div>
 
                 <Collapsible>
