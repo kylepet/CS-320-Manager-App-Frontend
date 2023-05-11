@@ -77,7 +77,7 @@ export default function Dashboard() {
                     <CollapsibleTrigger className="w-full block">
                         <div className="flex items-center bg-cyan-400 px-6 py-4 justify-between">
                             <div className="text-cyan-950 font-semibold">
-                                Section 59770
+                                Section 2B
                             </div>
                             <div className="w-6 h-6 bg-yellow-200 rounded-full text-cyan-950 font-semibold">
                                 3
