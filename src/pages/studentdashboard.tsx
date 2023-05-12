@@ -16,7 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import SubmissionForm from "@/components/popup";
+import SubmissionForm from "@/components/submissionform";
 
 export default function StudentDashboard(this: any) {
   const router = useRouter();
@@ -46,7 +46,6 @@ export default function StudentDashboard(this: any) {
         </div>
 
         <div className="max-w-lg mx-auto space-y-2">
-          <SubmissionForm></SubmissionForm>
           <Sections></Sections>
         </div>
       </main>

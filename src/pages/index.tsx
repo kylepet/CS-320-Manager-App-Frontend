@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import Login from './login'
 import { useQuery } from "react-query";
 import { sectionDetails } from '../../services/apiSection';
+import "bootstrap/dist/css/bootstrap.css";
 
 const inter = Inter({ subsets: ['latin'] })
 
