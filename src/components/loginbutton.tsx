@@ -31,7 +31,7 @@ export default function ThisButton(onClick: any) {
     <div>
       {/* <div id="submit_button_container"> */}
       <button onClick={onClick} type="button" id="myBtn" className={styles.button}>
-        Click Here!
+        Login
       </button>
       {/* </div> */}
       {/* onClick={callAPI} */}

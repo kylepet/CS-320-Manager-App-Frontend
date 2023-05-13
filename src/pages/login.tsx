@@ -117,7 +117,7 @@ export default function Login() {
                 id="myBtn"
                 className={styles.button}
               >
-                Click Here!
+                Login
               </button>
               {errorMessage && (
                 <div className={styles.error}><p>

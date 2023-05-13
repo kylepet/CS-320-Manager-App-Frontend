@@ -21,7 +21,7 @@ export default function LoginConnection() {
     return (
         <>
             <div id="submit_button_container">
-                <button type = "button" id="myBtn" className = {styles.button} onClick={call_Login_API}> Click Here!</button>
+                <button type = "button" id="myBtn" className = {styles.button} onClick={call_Login_API}>Login</button>
             </div>
         </>
     );
