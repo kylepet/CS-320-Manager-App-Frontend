@@ -220,6 +220,12 @@ input
     font-size: 5vh;
 }
 
+.error_message {
+    position: fixed;
+    top: 95vh;
+    text-align: center;
+}
+
 
 @tailwind base;
 @tailwind components;

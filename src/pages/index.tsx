@@ -1,16 +1,9 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
-import Title_box from '@/components/titlebox'
-import Fname from '@/components/fname'
-import Lname from '@/components/lname'
-import YOG from '@/components/yog'
-import Previous from '@/components/previous'
-import Email from '@/components/email'
-import Previousgrade from '@/components/previousgrade'
-import Submit from '@/components/submit'
 import Login from './login'
 import { useQuery } from "react-query";
 import { sectionDetails } from '../../services/apiSection';
+import "bootstrap/dist/css/bootstrap.css";
 
 const inter = Inter({ subsets: ['latin'] })
 

@@ -9,13 +9,12 @@ import NotSubmitted from "./notsubmitted";
 import { useQuery } from "react-query";
 import { managerPool, sectionDetails } from "../../services/apiSection";
 import { getProfile } from "../../services/apiLogin";
+import { Input } from "./ui/input";
 
 export default function Sections(this: any) {
 
   const classes = useQuery({ queryKey: ["student-sections"], queryFn: managerPool });
   const profile = useQuery({ queryKey: ["student-details"], queryFn: getProfile });
- 
-  console.log(classes);
 
   if (classes.isLoading || profile.isLoading) {
     return <>Loading</>;
@@ -25,9 +24,13 @@ export default function Sections(this: any) {
     return <>Loading</>;
   }
 
+  const hasSubmitted = classes.data.reduce((acc: any, e: any) => e.enrolled.findIndex((x: any) => x._id === profile.data.id)
+   !== -1 || e.applications.findIndex((x: any) => x.student._id === profile.data.id) !== -1 ? true : acc, false);
+
   return (
     <>
       <div className="max-w-lg mx-auto space-y-2">
+        {hasSubmitted ? '' : <NotSubmitted section={false} sectionList={classes}/>}
         {classes.data.map((data: any) => (
           <StudentSection
             key={data._id}
@@ -42,7 +45,7 @@ export default function Sections(this: any) {
               ) : data.applications.findIndex(
                   (e: any) => e.student._id === profile.data.id
                 ) === -1 ? (
-                <NotSubmitted />
+                <NotSubmitted section={true}/>
               ) : (
                 <Pending />
               )
