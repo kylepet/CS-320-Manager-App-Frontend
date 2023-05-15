@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
     CollapsibleContent,
     CollapsibleTrigger,
   } from "@/components/ui/collapsible"  
-import { Check, Trash } from 'lucide-react'
+import {Check, Cross, Crosshair, CrossIcon, Delete, Frown, Trash, UtensilsCrossed, XIcon} from 'lucide-react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { getProfile } from '../../services/apiLogin'
 import { sectionDetails, managerPool} from '../../services/apiSection'
@@ -28,6 +28,10 @@ export default function Dashboard() {
     const mySections = managerPoolQuery.data.filter((section: any) => 
         section.professor.email == getProfileQuery.data.email
     )
+    const otherSections = managerPoolQuery.data.filter((section: any) =>
+        section.professor.email != getProfileQuery.data.email
+    )
+
 
     console.log({
         allApplications: allApplicationsQuery.data,
@@ -74,7 +78,7 @@ export default function Dashboard() {
         <main className="mt-8">
             <div className="max-w-lg mx-auto space-y-2">
                 <div className="mb-4 flex justify-between items-center">
-                    <span className="text-lg font-semibold text-cyan-800">Your Sections</span>
+                    <span className="text-lg font-semibold text-cyan-800">{getProfileQuery.data.name}'s Sections</span>
                     <div className="flex justify-between items-center space-x-2">
                         <Logout />
                     </div>
@@ -87,52 +91,174 @@ export default function Dashboard() {
                                 <div className="text-cyan-950 font-semibold">
                                     Section {data.sectionNumber}
                                 </div>
+                                {"Enrolled: " + data.enrolled.length + "/"}
+                                {data.cap}
+                            </div>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                            <div className="px-3 py-3 bg-white">
+                                    <div>
+                                        Schedule
+                                    </div>
+                                <div className={"bg-pink-400 rounded px-2 py-2"}>
+                                    {data.schedule.map((data: any) =>(
+                                        <div>
+                                            {data}
+                                        </div>
+                                    ))}
+                                </div>
+                                <div>
+                                    <ul className="space-y-2">
+                                        <h1 className={"pt-2"}>
+                                            Applications
+                                        </h1>
+                                        {
+                                            data.applications.length === 0 ? (
+                                                <div className={"bg-green-400 px-3 py-2 rounded"}>
+                                                    None Yet
+                                                </div>
+                                            ) : ""
+                                        }
+                                        {
+                                            data.applications.map((data: any) => (
+                                                <li className="bg-yellow-100 px-3 py-2 rounded flex justify-between items-center">
+                                                    <span className="flex justify-between items-center">
+                                                        <ExclamationCircleIcon className="h-4 w-4 mr-1 text-yellow-500" />
+                                                        {data.student.name}
+                                                    </span>
+                                                    <span className="space-x-2">
+                                                        <Button id={data.student._id + "+accept"} size='sm' variant='subtle'>
+                                                            <Check className="h-4 w-4" />
+                                                        </Button>
+                                                        <Button id={data.student._id + "+deny"} size='sm' variant='destructive'>
+                                                            <XIcon className="h-4 w-4" />
+                                                        </Button>
+                                                    </span>
+                                                </li>
+                                            ))
+                                        }
+
+
+                                    </ul>
+
+                                    <ul className="space-y-2">
+                                        <h1 className={"pt-2"}>
+                                            Enrolled
+                                        </h1>
+                                        {
+                                            data.enrolled.length === 0 ? (
+                                                <div className={"bg-green-400 px-3 py-2 rounded"}>
+                                                    None Yet
+                                                </div>
+                                            ) : ""
+                                        }
+                                        {
+                                            data.enrolled.map((data: any) => (
+                                                data.name == undefined ? "" : (
+                                                    <li className="bg-yellow-100 px-3 py-2 rounded flex justify-between items-center">
+                                                    <span className="flex justify-between items-center">
+                                                        <ExclamationCircleIcon className="h-4 w-4 mr-1 text-yellow-500" />
+                                                        {data.name}
+                                                    </span>
+                                                    </li>
+                                                )
+
+                                            ))
+                                        }
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </CollapsibleContent>
+                    </Collapsible>
+                ))}
+
+                <div className="max-w-lg mx-auto space-y-2">
+                    <div className="mb-4 flex justify-between items-center">
+                        <span className="text-lg font-semibold text-cyan-800 pt-5">Other Sections</span>
+                    </div>
+                </div>
+                {otherSections.map((data: any) => (
+                    <Collapsible key={data._id}>
+                        <CollapsibleTrigger className="w-full block">
+                            <div className="flex items-center bg-cyan-400 px-6 py-4 justify-between">
+                                <div className="text-cyan-950 font-semibold">
+                                    Section {data.sectionNumber}
+                                </div>
+                                {"Enrolled: " + data.enrolled.length + "/"}
+                                {data.cap}
+
                             </div>
                         </CollapsibleTrigger>
                         <CollapsibleContent>
                             <div className="px-3 py-3 bg-white">
                                 <div>
                                     <ul className="space-y-2">
+                                            <div>
+                                                Schedule
+                                            </div>
+                                        <div className={"bg-pink-400 rounded px-2 py-2"}>
+                                            {data.schedule.map((data: any) =>(
+                                                <div>
+                                                    {data}
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        <h1>Applications</h1>
+
+                                            {
+                                                data.applications.length === 0 ? (
+                                                <div className={"bg-green-400 px-3 py-2 rounded"}>
+                                                    None Yet
+                                                </div>
+                                            ) : ""
+                                            }
+
                                         {
+
                                             data.applications.map((data: any) => (
                                                 <li className="bg-yellow-100 px-3 py-2 rounded flex justify-between items-center">
                                                     <span className="flex justify-between items-center">
-                                                        <ExclamationCircleIcon className="h-4 w-4 mr-1 text-yellow-500" />
-                                                        {data.email}
-                                                    </span>
-                                                    <span className="space-x-2">
-                                                        <Button size='sm' variant='subtle'>
-                                                            <Check className="h-4 w-4" />
-                                                        </Button>
-                                                        <Button size='sm' variant='destructive'>
-                                                            <Trash className="h-4 w-4" />
-                                                        </Button>
+                                                        <ExclamationCircleIcon className="h-4 w-4 mr-1 text-yellow-500 " />
+                                                        <div className={"grid columns-1"}>
+                                                            <div>
+                                                                {data.student.name}
+                                                            </div>
+                                                            <div>
+                                                                {data.email}
+                                                            </div>
+                                                        </div>
                                                     </span>
                                                 </li>
                                             ))
                                         }
-                                    <li className="bg-cyan-100 px-3 py-2 rounded flex justify-between items-center">
-                                            <span>Student 1</span>
-                                            <span className="space-x-2">
-                                                <Button size='sm' variant='destructive'>
-                                                    <Trash className="h-4 w-4" />
-                                                </Button>
-                                            </span>
-                                        </li>
-                                        <li className="bg-yellow-100 px-3 py-2 rounded flex justify-between items-center">
-                                            <span className="flex justify-between items-center">
-                                                <ExclamationCircleIcon className="h-4 w-4 mr-1 text-yellow-500" />
-                                                Student 2
-                                            </span>
-                                            <span className="space-x-2">
-                                                <Button size='sm' variant='subtle'>
-                                                    <Check className="h-4 w-4" />
-                                                </Button>
-                                                <Button size='sm' variant='destructive'>
-                                                    <Trash className="h-4 w-4" />
-                                                </Button>
-                                            </span>
-                                        </li>
+                                        <ul className="space-y-2">
+                                            <h1 className={"pt-2"}>
+                                                Enrolled
+                                            </h1>
+                                            {
+                                                data.enrolled.length === 0 ? (
+                                                    <div className={"bg-green-400 px-3 py-2 rounded"}>
+                                                        None Yet
+                                                    </div>
+                                                ) : ""
+                                            }
+                                            {
+                                                data.enrolled.map((data: any) => (
+                                                        data.name == undefined ? "" : (
+                                                                <li className="bg-green-200 px-3 py-2 rounded flex justify-between items-center">
+                                                                    <span className="flex justify-between items-center h-10">
+                                                                        {data.name}
+                                                                    </span>
+                                                                </li>
+                                                        )
+
+                                                ))
+                                            }
+                                        </ul>
+
+
                                     </ul>
                                 </div>
                             </div>
