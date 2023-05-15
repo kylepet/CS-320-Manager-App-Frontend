@@ -1,36 +1,70 @@
 import Head from 'next/head'
-import { ExclamationCircleIcon, PlusIcon } from '@heroicons/react/24/solid'
+import { ExclamationCircleIcon } from '@heroicons/react/24/solid'
 import { Button } from "@/components/ui/button"
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-  } from "@/components/ui/alert-dialog"
   import {
     Collapsible,
     CollapsibleContent,
     CollapsibleTrigger,
   } from "@/components/ui/collapsible"  
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Check, Trash } from 'lucide-react'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { getProfile } from '../../services/apiLogin'
 import { sectionDetails, managerPool} from '../../services/apiSection'
 import Logout from '@/components/logout'
+import { accept, allApplications } from '../../services/apiSubmit'
 
 export default function Dashboard() {
-    const profile = useQuery({ queryKey: ["student-details"], queryFn: getProfile });
-    console.log(profile);
-    // const sections = useQuery({ queryKey: ["student-details"], queryFn: sectionDetails });
-    // console.log(sections);
-    const manager_pool = useQuery({ queryKey: ["student-details"], queryFn: managerPool });
-    console.log(manager_pool);
+    const queryClient = useQueryClient();
+    
+    const allApplicationsQuery = useQuery({ queryKey: ["student-apps-all-applications"], queryFn: allApplications });
+    const managerPoolQuery = useQuery({ queryKey: ["manager-pool"], queryFn: managerPool });
+    const getProfileQuery = useQuery({ queryKey: ["profile"], queryFn: getProfile });
+    const sectionDetailsQuery = useQuery({ queryKey: ["sections"], queryFn: sectionDetails });
+
+    if (allApplicationsQuery.isLoading || managerPoolQuery.isLoading || getProfileQuery.isLoading || sectionDetailsQuery.isLoading) {
+        return <>Loading</>;
+    }
+
+    const mySections = managerPoolQuery.data.filter((section: any) => 
+        section.professor.email == getProfileQuery.data.email
+    )
+
+    console.log({
+        allApplications: allApplicationsQuery.data,
+        managerPool: managerPoolQuery.data,
+        getProfile: getProfileQuery.data,
+        sectionDetails: sectionDetailsQuery.data,
+        mySections
+    });
+
+    const decide = (acceptInput: boolean, studEmail: string) =>{
+        const decideStudent = useMutation({
+            // queryKey: ["login"],
+            mutationFn: accept,
+            onSuccess: async () => {
+                console.log("Student decided")
+                window.location.reload();
+                await queryClient.invalidateQueries({queryKey: ["student-apps-all-applications"]});
+                await queryClient.invalidateQueries({queryKey: ["manager-pool"]});
+                await queryClient.invalidateQueries({queryKey: ["profile"]});
+                await queryClient.invalidateQueries({queryKey: ["sections"]});
+            },
+            onError: async (error: any) => {
+                console.log(error.response.data.message);
+                await queryClient.invalidateQueries({queryKey: ["student-apps-all-applications"]});
+                await queryClient.invalidateQueries({queryKey: ["manager-pool"]});
+                await queryClient.invalidateQueries({queryKey: ["profile"]});
+                await queryClient.invalidateQueries({queryKey: ["sections"]});
+            },
+        });
+
+        decideStudent.mutate({
+            accept: acceptInput,
+            studEmail,
+            profEmail: getProfileQuery.data.email,
+        })
+    }
+
     return (
       <>
         <Head>
@@ -43,81 +77,68 @@ export default function Dashboard() {
                     <span className="text-lg font-semibold text-cyan-800">Your Sections</span>
                     <div className="flex justify-between items-center space-x-2">
                         <Logout />
-                        <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                                <Button variant="outline">
-                                    <PlusIcon className="mr-2 h-4 w-4" /> Create Section
-                                </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                                <AlertDialogHeader>
-                                    <AlertDialogTitle>Create Section</AlertDialogTitle>
-                                    <div className="space-y-4">
-                                        <div className="text-sm text-cyan-500 dark:text-cyan-400 grid w-full items-center gap-1.5">
-                                            <Label htmlFor="section">Section</Label>
-                                            <Input className="w-full" type="text" id="section" placeholder="" />
-                                        </div>
-
-                                        <div className="text-sm text-cyan-500 dark:text-cyan-400 grid w-full items-center gap-1.5">
-                                            <Label htmlFor="todo">TODO</Label>
-                                            <Input className="w-full" type="text" id="todo" placeholder="" />
-                                        </div>
-                                    </div>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                    <AlertDialogAction>Submit</AlertDialogAction>
-                                </AlertDialogFooter>
-                            </AlertDialogContent>
-                        </AlertDialog>
                     </div>
                 </div>
 
-                <Collapsible>
-                    <CollapsibleTrigger className="w-full block">
-                        <div className="flex items-center bg-cyan-400 px-6 py-4 justify-between">
-                            <div className="text-cyan-950 font-semibold">
-                                Section 02B
+                {mySections.map((data: any) => (
+                    <Collapsible key={data._id}>
+                        <CollapsibleTrigger className="w-full block">
+                            <div className="flex items-center bg-cyan-400 px-6 py-4 justify-between">
+                                <div className="text-cyan-950 font-semibold">
+                                    Section {data.sectionNumber}
+                                </div>
                             </div>
-                            <div className = "text-cyan-950 font-semibold justify-stretch">
-                                Enrollment Capacity:
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                            <div className="px-3 py-3 bg-white">
+                                <div>
+                                    <ul className="space-y-2">
+                                        {
+                                            data.applications.map((data: any) => (
+                                                <li className="bg-yellow-100 px-3 py-2 rounded flex justify-between items-center">
+                                                    <span className="flex justify-between items-center">
+                                                        <ExclamationCircleIcon className="h-4 w-4 mr-1 text-yellow-500" />
+                                                        {data.email}
+                                                    </span>
+                                                    <span className="space-x-2">
+                                                        <Button size='sm' variant='subtle'>
+                                                            <Check className="h-4 w-4" />
+                                                        </Button>
+                                                        <Button size='sm' variant='destructive'>
+                                                            <Trash className="h-4 w-4" />
+                                                        </Button>
+                                                    </span>
+                                                </li>
+                                            ))
+                                        }
+                                    <li className="bg-cyan-100 px-3 py-2 rounded flex justify-between items-center">
+                                            <span>Student 1</span>
+                                            <span className="space-x-2">
+                                                <Button size='sm' variant='destructive'>
+                                                    <Trash className="h-4 w-4" />
+                                                </Button>
+                                            </span>
+                                        </li>
+                                        <li className="bg-yellow-100 px-3 py-2 rounded flex justify-between items-center">
+                                            <span className="flex justify-between items-center">
+                                                <ExclamationCircleIcon className="h-4 w-4 mr-1 text-yellow-500" />
+                                                Student 2
+                                            </span>
+                                            <span className="space-x-2">
+                                                <Button size='sm' variant='subtle'>
+                                                    <Check className="h-4 w-4" />
+                                                </Button>
+                                                <Button size='sm' variant='destructive'>
+                                                    <Trash className="h-4 w-4" />
+                                                </Button>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div className="w-6 h-6 bg-yellow-200 rounded-full text-cyan-950 font-semibold">
-                                3
-                            </div>
-                        </div>
-                    </CollapsibleTrigger>
-                    <CollapsibleContent>
-                        <div className="px-3 py-3 bg-white">
-                            <div>
-                                <ul className="space-y-2">
-                                <li className="bg-cyan-100 px-3 py-2 rounded flex justify-between items-center">
-                                        <span>Student 1</span>
-                                        <span className="space-x-2">
-                                            <Button size='sm' variant='destructive'>
-                                                <Trash className="h-4 w-4" />
-                                            </Button>
-                                        </span>
-                                    </li>
-                                    <li className="bg-yellow-100 px-3 py-2 rounded flex justify-between items-center">
-                                        <span className="flex justify-between items-center">
-                                            <ExclamationCircleIcon className="h-4 w-4 mr-1 text-yellow-500" />
-                                            Student 2
-                                        </span>
-                                        <span className="space-x-2">
-                                            <Button size='sm' variant='subtle'>
-                                                <Check className="h-4 w-4" />
-                                            </Button>
-                                            <Button size='sm' variant='destructive'>
-                                                <Trash className="h-4 w-4" />
-                                            </Button>
-                                        </span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </CollapsibleContent>
-                </Collapsible>
+                        </CollapsibleContent>
+                    </Collapsible>
+                ))}
             </div>
         </main>
       </>
