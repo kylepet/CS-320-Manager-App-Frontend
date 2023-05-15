@@ -44,7 +44,7 @@ export default function Dashboard() {
     });
     function handleCloseModal() {
         setIsModalOpen(false);
-        //window.location.reload();
+        window.location.reload();
     }
 
     const [accepted, setAccepted] = useState(true);
