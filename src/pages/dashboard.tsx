@@ -8,10 +8,13 @@ import { Button } from "@/components/ui/button"
   } from "@/components/ui/collapsible"  
 import {Check, Cross, Crosshair, CrossIcon, Delete, Frown, Trash, UtensilsCrossed, XIcon} from 'lucide-react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { getProfile } from '../../services/apiLogin'
+import {getProfile, login} from '../../services/apiLogin'
 import { sectionDetails, managerPool} from '../../services/apiSection'
 import Logout from '@/components/logout'
-import { accept, allApplications } from '../../services/apiSubmit'
+import {accept, allApplications, submit} from '../../services/apiSubmit'
+import Cookies from "js-cookie";
+import {useState} from "react";
+import Modal from "../components/acceptStudentModal";
 
 export default function Dashboard() {
     const queryClient = useQueryClient();
@@ -20,6 +23,43 @@ export default function Dashboard() {
     const managerPoolQuery = useQuery({ queryKey: ["manager-pool"], queryFn: managerPool });
     const getProfileQuery = useQuery({ queryKey: ["profile"], queryFn: getProfile });
     const sectionDetailsQuery = useQuery({ queryKey: ["sections"], queryFn: sectionDetails });
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    function handleOpenModal() {
+        setIsModalOpen(true);
+    }
+    const acceptDenyStudent = useMutation({
+        // queryKey: ["login"],
+        mutationFn: submit,
+        onSuccess: async (data: any) => {
+            // Invalidate and refetch
+            console.log("Application submitted")
+
+            queryClient.invalidateQueries({ queryKey: ["login"] });
+        },
+        onError: (error: any) => {
+            console.log(error.response.data.message);
+
+            queryClient.invalidateQueries({ queryKey: ["login"] });
+        },
+    });
+    function handleCloseModal() {
+        setIsModalOpen(false);
+        //window.location.reload();
+    }
+
+    const [accepted, setAccepted] = useState(true);
+
+    function denyButton() {
+        setAccepted(false);
+        setIsModalOpen(true);
+    }
+
+    function acceptButton() {
+        setAccepted(true);
+        setIsModalOpen(true);
+    }
+
+
 
     if (allApplicationsQuery.isLoading || managerPoolQuery.isLoading || getProfileQuery.isLoading || sectionDetailsQuery.isLoading) {
         return <>Loading</>;
@@ -30,43 +70,13 @@ export default function Dashboard() {
     )
     const otherSections = managerPoolQuery.data.filter((section: any) =>
         section.professor.email != getProfileQuery.data.email
+
     )
 
 
-    console.log({
-        allApplications: allApplicationsQuery.data,
-        managerPool: managerPoolQuery.data,
-        getProfile: getProfileQuery.data,
-        sectionDetails: sectionDetailsQuery.data,
-        mySections
-    });
-
-    const decide = (acceptInput: boolean, studEmail: string) =>{
-        const decideStudent = useMutation({
-            // queryKey: ["login"],
-            mutationFn: accept,
-            onSuccess: async () => {
-                console.log("Student decided")
-                window.location.reload();
-                await queryClient.invalidateQueries({queryKey: ["student-apps-all-applications"]});
-                await queryClient.invalidateQueries({queryKey: ["manager-pool"]});
-                await queryClient.invalidateQueries({queryKey: ["profile"]});
-                await queryClient.invalidateQueries({queryKey: ["sections"]});
-            },
-            onError: async (error: any) => {
-                console.log(error.response.data.message);
-                await queryClient.invalidateQueries({queryKey: ["student-apps-all-applications"]});
-                await queryClient.invalidateQueries({queryKey: ["manager-pool"]});
-                await queryClient.invalidateQueries({queryKey: ["profile"]});
-                await queryClient.invalidateQueries({queryKey: ["sections"]});
-            },
-        });
-
-        decideStudent.mutate({
-            accept: acceptInput,
-            studEmail,
-            profEmail: getProfileQuery.data.email,
-        })
+    function handleAcceptDeny(id: string, accept: boolean, studentEmail: string, profEmail: string) {
+        console.log(id, accept, studentEmail, profEmail);
+        setIsModalOpen(true);
     }
 
     return (
@@ -76,6 +86,9 @@ export default function Dashboard() {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
         <main className="mt-8">
+
+
+
             <div className="max-w-lg mx-auto space-y-2">
                 <div className="mb-4 flex justify-between items-center">
                     <span className="text-lg font-semibold text-cyan-800">{getProfileQuery.data.name}'s Sections</span>
@@ -127,12 +140,14 @@ export default function Dashboard() {
                                                         {data.student.name}
                                                     </span>
                                                     <span className="space-x-2">
-                                                        <Button id={data.student._id + "+accept"} size='sm' variant='subtle'>
+                                                        <Button onClick={acceptButton} id={data.student._id + "+accept"} size='sm' variant='subtle'>
                                                             <Check className="h-4 w-4" />
                                                         </Button>
-                                                        <Button id={data.student._id + "+deny"} size='sm' variant='destructive'>
+                                                        <Button onClick={denyButton} id={data.student._id} size='sm' variant='destructive'>
                                                             <XIcon className="h-4 w-4" />
                                                         </Button>
+                                                        <Modal application={data} student={data.student} isOpen={isModalOpen} studentEmail={data.student.email} profEmail={getProfileQuery.data.email} accepted={accepted} onClose={handleCloseModal} />
+
                                                     </span>
                                                 </li>
                                             ))
@@ -155,9 +170,8 @@ export default function Dashboard() {
                                         {
                                             data.enrolled.map((data: any) => (
                                                 data.name == undefined ? "" : (
-                                                    <li className="bg-yellow-100 px-3 py-2 rounded flex justify-between items-center">
+                                                    <li className="bg-green-400 px-3 py-2 rounded flex justify-between items-center">
                                                     <span className="flex justify-between items-center">
-                                                        <ExclamationCircleIcon className="h-4 w-4 mr-1 text-yellow-500" />
                                                         {data.name}
                                                     </span>
                                                     </li>
