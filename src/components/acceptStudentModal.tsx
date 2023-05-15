@@ -62,7 +62,7 @@ function Modal(props: ModalProps) {
                 studEmail: studentEmail,
                 profEmail: profEmail
             })
-
+            window.location.reload();
         }
        onClose()
     }
