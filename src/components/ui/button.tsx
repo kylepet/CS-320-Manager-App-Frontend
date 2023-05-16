@@ -9,16 +9,16 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-cyan-900 text-white hover:bg-cyan-700 dark:bg-cyan-50 dark:text-cyan-900",
+          "bg-cyan-900 text-black hover:bg-cyan-700 dark:bg-cyan-50 dark:text-black",
         destructive:
-          "bg-red-500 text-white hover:bg-red-600 dark:hover:bg-red-600",
+          "bg-red-500 text-black hover:bg-red-600 dark:hover:bg-red-600",
         outline:
-          "bg-transparent border border-cyan-200 hover:bg-cyan-100 dark:border-cyan-700 dark:text-cyan-900",
+          "bg-transparent border border-white hover:bg-cyan-100 dark:border-cyan-700 dark:text-black",
         subtle:
-          "bg-cyan-100 text-cyan-900 hover:bg-cyan-200 dark:bg-cyan-700 dark:text-cyan-100",
+          "bg-cyan-100 text-black hover:bg-cyan-200 dark:bg-cyan-700 dark:text-black",
         ghost:
-          "bg-transparent hover:bg-cyan-100 dark:hover:bg-cyan-800 dark:text-cyan-100 dark:hover:text-cyan-100 data-[state=open]:bg-transparent dark:data-[state=open]:bg-transparent",
-        link: "bg-transparent dark:bg-transparent underline-offset-4 hover:underline text-cyan-900 dark:text-cyan-100 hover:bg-transparent dark:hover:bg-transparent",
+          "bg-transparent hover:bg-cyan-100 dark:hover:bg-cyan-800 dark:white dark:hover:white data-[state=open]:bg-transparent dark:data-[state=open]:bg-transparent",
+        link: "bg-transparent dark:bg-transparent underline-offset-4 hover:underline white dark:white hover:bg-transparent dark:hover:bg-transparent",
       },
       size: {
         default: "h-10 py-2 px-4",
