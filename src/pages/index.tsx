@@ -1,66 +1,106 @@
-import Head from 'next/head'
-import { Inter } from 'next/font/google'
-import Login from './login'
-import { useQuery } from "react-query";
-import { sectionDetails } from '../../services/apiSection';
-import "bootstrap/dist/css/bootstrap.css";
-
-const inter = Inter({ subsets: ['latin'] })
-
+import React, { useState } from "react";
+import styles from "@/styles/login.module.css";
+import {useMutation} from "react-query";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { login } from "../../services/apiLogin";
 
 export default function Home() {
-  const sections = useQuery({ queryKey: ["student-details"], queryFn: sectionDetails });
-  console.log(sections);
+  const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const studentDashboard = "/studentdashboard"
+  const profDashboard = "/dashboard"
+
+
+  const mutation = useMutation({
+    mutationFn: login,
+    onSuccess: async (data) => {
+      Cookies.set("access_token", data.access_token);
+
+      // If the user is a student, we redirect to the student dashboard.
+      // Otherwise, redirect to the student dashboard.
+      const pathname = data.isStudent ? studentDashboard : profDashboard;
+
+      router
+        .push({ pathname })
+        .then(() => {
+          router.reload();
+        });
+    },
+    onError: (error: any) => {
+      setErrorMessage(error.response.data.message);
+    },
+  });
+
+  const handleUsernameChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setUsername(event.target.value);
+  };
+  const handlePasswordChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+    return mutation.mutate({
+      email: username,
+      password: password,
+    });
+  };
 
   return (
-    // <>
-    //  <Head>
-    //    <title>CS320 Form Submission Screen</title>
-    //    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    //  </Head>
-    //  <main className={styles.main}>
-    //    <Title_box />
-    //    <Fname />
-    //    <Lname />
-    //    <Email />
-    //    <YOG />
-    //    <Previous />
-    //    <Previousgrade />
-    //    <Submit />
-    //  </main>
-    //</>
-    <Login/>
-    // <>
-    //   <Head>
-    //     <title>CS320 Form Submission Screen</title>
-    //     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    //   </Head>
-    //   <main className={styles.main}>
-    //   <div className="title_box box" id="title-box">
-    //         <div className="title_box_text">Project Manager Applicant Information</div>
-    //     </div>
-    //     <div>
-    //         <div id="fname_box" className="field_box">
-    //             <div id="fname-text" className="field_box_text">First Name: </div>
-    //         </div>
-    //         <input type="text" name="fname" id="fname" className="text_input"/>
-    //         <div id="lname_box" className="field_box">
-    //             <div id="lname-text" className="field_box_text">Last Name: </div>
-    //         </div>
-    //         <input type="text" name="lname" id="lname" className="text_input"/>
-    //         <div id="YoG_box" className="field_box">
-    //             <div id="YoG-text" className="field_box_text">Year of Graduation: </div>
-    //         </div>
-    //         <input type="number" id="YoG" className="text_input"/>
-    //         <div id="email_box" className="field_box">
-    //             <div id="email-text" className="field_box_text">Email: </div>
-    //         </div>
-    //         <input type="text" id="email" className="text_input"/>
-    //         <div id="submit_button_container">
-    //             <button id="submit" className="field_box_text">Submit!</button>
-    //         </div>
-    //     </div>
-    //   </main>
-    // </>
-  )
+    <>
+      <main className={styles.body}>
+        <p>
+          <title>CS320 Geocities Login GUI</title>
+        </p>
+        <form onSubmit={handleSubmit}>
+          <div className={styles.center}>
+            <div className={styles.wrapper}>
+              <h2>Sign-In</h2>
+              <br />
+              <div className={styles.username}>
+                <h3>Username</h3>
+                <input
+                  id="myUsername"
+                  defaultValue={"username"}
+                  value={username}
+                  onChange={handleUsernameChange}
+                />
+                <br />
+              </div>
+              <div className={styles.password}>
+                <h3>Password</h3>
+                <input
+                  type="password"
+                  defaultValue={"password"}
+                  onChange={handlePasswordChange}
+                  value={password}
+                />
+              </div>
+              <button
+                onClick={handleSubmit}
+                type="button"
+                id="myBtn"
+                className={styles.button}
+              >
+                Login
+              </button>
+              {errorMessage && (
+                <div className={styles.error}><p>
+                  Wrong Username or Password 
+                </p></div>
+              )}
+            </div>
+          </div>
+        </form>
+        <p />
+      </main>
+    </>
+  );
 }
