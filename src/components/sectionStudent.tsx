@@ -7,7 +7,7 @@ import {
   CollapsibleTrigger,
 } from "./ui/collapsible";
 import Accepted from "./accepted";
-import Rejected from "./rejected";
+import Rejected from "./capreached";
 import Pending from "./pending";
 
 export default function StudentSection(props: any) {
@@ -19,12 +19,24 @@ export default function StudentSection(props: any) {
             <div className="text-cyan-950 font-semibold">
               Section {props.section}
             </div>
+            <div>
+              <div className="text-cyan-950 font-semibold">
+                Enrolled: {`${props.enrolled.length} / ${props.cap}`}
+              </div>
+
+            </div>
           </div>
         </CollapsibleTrigger>
         <CollapsibleContent>
           <div className="px-3 py-3 bg-white">
             <div>
               <ul className="space-y-2">
+                <div className="bg-pink-400 rounded px-2 py-2">
+                  <div>Schedule:</div>
+                  <div>
+                    {props.schedule.map((e: any) => <div>{e}</div>)}
+                  </div>
+                </div>
                 <li className="bg-cyan-100 px-3 py-2 rounded flex justify-between items-center">
                   <span>Professor: {props.professor.name}</span>
                   <span className="space-x-2"></span>
