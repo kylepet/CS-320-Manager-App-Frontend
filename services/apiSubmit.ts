@@ -18,3 +18,11 @@ export const accept = async (body: {
   const response = await request.post(`/accept`, body);
   return response.data;
 }
+
+export const capChange = async (body: {
+  capChange: number,
+  profEmail: string,
+}) => {
+  const response = await request.post(`/changeCap`, body);
+  return response.data;
+};

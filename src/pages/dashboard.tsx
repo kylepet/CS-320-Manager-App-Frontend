@@ -6,42 +6,43 @@ import { Button } from "@/components/ui/button"
     CollapsibleContent,
     CollapsibleTrigger,
   } from "@/components/ui/collapsible"  
-import {Check, Cross, Crosshair, CrossIcon, Delete, Frown, Trash, UtensilsCrossed, XIcon} from 'lucide-react'
+import {Check, XIcon} from 'lucide-react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import {getProfile, login} from '../../services/apiLogin'
+import {getProfile} from '../../services/apiLogin'
 import { sectionDetails, managerPool} from '../../services/apiSection'
 import Logout from '@/components/logout'
-import {accept, allApplications, submit} from '../../services/apiSubmit'
-import Cookies from "js-cookie";
+import {allApplications, capChange} from '../../services/apiSubmit'
 import {useState} from "react";
 import Modal from "../components/acceptStudentModal";
 
 export default function Dashboard() {
     const queryClient = useQueryClient();
-    
+
+    const [inputs, setInputs] = useState({ capChange: 0 });
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setInputs(values => ({...values, [name]: value}))
+    }
+
     const allApplicationsQuery = useQuery({ queryKey: ["student-apps-all-applications"], queryFn: allApplications });
     const managerPoolQuery = useQuery({ queryKey: ["manager-pool"], queryFn: managerPool });
     const getProfileQuery = useQuery({ queryKey: ["profile"], queryFn: getProfile });
     const sectionDetailsQuery = useQuery({ queryKey: ["sections"], queryFn: sectionDetails });
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    function handleOpenModal() {
-        setIsModalOpen(true);
-    }
-    const acceptDenyStudent = useMutation({
-        // queryKey: ["login"],
-        mutationFn: submit,
-        onSuccess: async (data: any) => {
-            // Invalidate and refetch
-            console.log("Application submitted")
 
-            queryClient.invalidateQueries({ queryKey: ["login"] });
+    const changeCap = useMutation({
+        mutationFn: capChange,
+        onSuccess: async () => {
+            // Invalidate and refetch
+            console.log("Cap changed")
         },
         onError: (error: any) => {
             console.log(error.response.data.message);
-
-            queryClient.invalidateQueries({ queryKey: ["login"] });
         },
     });
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
     function handleCloseModal() {
         setIsModalOpen(false);
     }
@@ -59,7 +60,6 @@ export default function Dashboard() {
     }
 
 
-
     if (allApplicationsQuery.isLoading || managerPoolQuery.isLoading || getProfileQuery.isLoading || sectionDetailsQuery.isLoading) {
         return <>Loading</>;
     }
@@ -69,13 +69,18 @@ export default function Dashboard() {
     )
     const otherSections = managerPoolQuery.data.filter((section: any) =>
         section.professor.email != getProfileQuery.data.email
-
     )
 
+    function submitCapChange() {
+        changeCap.mutate({
+            profEmail: getProfileQuery.data.email,
+            capChange: inputs.capChange
+        })
 
-    function handleAcceptDeny(id: string, accept: boolean, studentEmail: string, profEmail: string) {
-        console.log(id, accept, studentEmail, profEmail);
-        setIsModalOpen(true);
+        queryClient.invalidateQueries({ queryKey: ["student-apps-all-applications"] });
+        queryClient.invalidateQueries({ queryKey: ["manager-pool"] });
+        queryClient.invalidateQueries({ queryKey: ["profile"] });
+        queryClient.invalidateQueries({ queryKey: ["sections"] });
     }
 
     return (
@@ -109,9 +114,12 @@ export default function Dashboard() {
                         </CollapsibleTrigger>
                         <CollapsibleContent>
                             <div className="px-3 py-3 bg-white">
-                                    <div>
-                                        Schedule
-                                    </div>
+                                <div>Modify Cap</div>
+                                <input id={data._id + "+modify-cap-input"} name="capChange" type="number" value={inputs.capChange} onChange={handleInputChange}></input>
+                                <Button onClick={submitCapChange} id={data._id + "+modify-cap-button"} size='sm' variant='subtle'>
+                                    <Check className="h-4 w-4" />
+                                </Button>
+                                <div>Schedule</div>
                                 <div className={"bg-pink-400 rounded px-2 py-2"}>
                                     {data.schedule.map((data: any) =>(
                                         <div>
