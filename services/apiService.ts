@@ -1,10 +1,8 @@
-// import { URL_API_ADMIN } from "config/index";
 import axios from "axios";
 import Cookies from "js-cookie";
-// import { getCookie } from 'cookies-next';
+import {ACCESS_TOKEN_COOKIE_NAME} from "@/lib/consts";
 
-// const TOKEN_BEARER = getCookie("access_token");
-const TOKEN_BEARER = Cookies.get("access_token");
+const TOKEN_BEARER = Cookies.get(ACCESS_TOKEN_COOKIE_NAME);
 
 export default axios.create({
   baseURL: 'http://localhost:3000',
