@@ -24,6 +24,8 @@ export default function Sections(this: any) {
     return <>Loading</>;
   }
 
+  console.log(classes, profile)
+
   const hasSubmitted = classes.data.reduce((acc: any, e: any) => e.enrolled.findIndex((x: any) => x._id === profile.data.id)
    !== -1 || e.applications.findIndex((x: any) => x.student._id === profile.data.id) !== -1 ? true : acc, false);
 
