@@ -8,12 +8,10 @@ import {
 } from "@/components/ui/collapsible"
 import { Check, XIcon } from "lucide-react"
 import { useMutation, useQuery, useQueryClient } from "react-query"
-import { getProfile } from "../../services/apiLogin"
-import { sectionDetails, managerPool } from "../../services/apiSection"
 import Logout from "@/components/logout"
-import { allApplications, capChange } from "../../services/apiSubmit"
 import { useState } from "react"
 import Modal from "../components/acceptStudentModal"
+import { API } from "@/lib/api"
 
 export default function Dashboard() {
   const queryClient = useQueryClient()
@@ -28,23 +26,23 @@ export default function Dashboard() {
 
   const allApplicationsQuery = useQuery({
     queryKey: ["student-apps-all-applications"],
-    queryFn: allApplications,
+    queryFn: API.getAllStudentApplications,
   })
   const managerPoolQuery = useQuery({
     queryKey: ["manager-pool"],
-    queryFn: managerPool,
+    queryFn: API.getManagerPool,
   })
   const getProfileQuery = useQuery({
     queryKey: ["profile"],
-    queryFn: getProfile,
+    queryFn: API.getProfile,
   })
   const sectionDetailsQuery = useQuery({
     queryKey: ["sections"],
-    queryFn: sectionDetails,
+    queryFn: API.getSections,
   })
 
   const changeCap = useMutation({
-    mutationFn: capChange,
+    mutationFn: API.changeCap,
     onSuccess: async () => {
       // Invalidate and refetch
       console.log("Cap changed")

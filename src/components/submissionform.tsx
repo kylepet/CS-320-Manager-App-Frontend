@@ -12,18 +12,17 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useMutation, useQuery, useQueryClient } from "react-query"
-import { getProfile, login } from "../../services/apiLogin"
 import { MultiSelect, Option } from "react-multi-select-component"
 import { ChangeEvent, useEffect, useState } from "react"
 import { useRouter } from "next/router"
-import { submit } from "../../services/apiSubmit"
+import { API } from "@/lib/api"
 
 export default function SubmissionForm(props: any) {
   const router = useRouter()
   const queryClient = useQueryClient()
 
   const submitApp = useMutation({
-    mutationFn: submit,
+    mutationFn: API.submitStudentApplication,
     onSuccess: async () => {
       console.log("Application submitted")
       window.location.reload()
@@ -47,7 +46,7 @@ export default function SubmissionForm(props: any) {
 
   const profile = useQuery({
     queryKey: ["student-details"],
-    queryFn: getProfile,
+    queryFn: API.getProfile,
   })
 
   const [refBackText, setRefBackInputText] = useState("")

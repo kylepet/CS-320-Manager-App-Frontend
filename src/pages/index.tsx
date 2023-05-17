@@ -2,8 +2,8 @@ import React, { useState } from "react"
 import styles from "@/styles/login.module.css"
 import { useMutation } from "react-query"
 import { useRouter } from "next/router"
-import { login } from "../../services/apiLogin"
 import { AUTH } from "@/lib/auth"
+import { API } from "@/lib/api"
 
 export default function Home() {
   const router = useRouter()
@@ -14,7 +14,7 @@ export default function Home() {
   const profDashboard = "/dashboard"
 
   const mutation = useMutation({
-    mutationFn: login,
+    mutationFn: API.signin,
     onSuccess: async (data) => {
       AUTH.set(data.access_token)
 

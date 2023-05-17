@@ -9,7 +9,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { useMutation, useQueryClient } from "react-query"
-import { accept } from "../../services/apiSubmit"
+import { API } from "@/lib/api"
 
 interface ModalProps {
   isOpen: boolean
@@ -35,7 +35,7 @@ function Modal(props: ModalProps) {
   const queryClient = useQueryClient()
   const acceptDenyStudent = useMutation({
     // queryKey: ["login"],
-    mutationFn: accept,
+    mutationFn: API.accept,
     onSuccess: async (data: any) => {
       // Invalidate and refetch
       console.log("Application submitted")

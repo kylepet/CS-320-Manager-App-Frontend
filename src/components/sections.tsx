@@ -4,25 +4,24 @@ import Rejected from "./rejected"
 import Pending from "./pending"
 import NotSubmitted from "./notsubmitted"
 import { useQuery } from "react-query"
-import { allApps, managerPool, sectionDetails } from "../../services/apiSection"
-import { getProfile } from "../../services/apiLogin"
+import { API } from "@/lib/api"
 import CapReached from "./capreached"
 
 export default function Sections(this: any) {
   const classes = useQuery({
     queryKey: ["student-sections"],
-    queryFn: managerPool,
+    queryFn: API.getManagerPool,
   })
   const profile = useQuery({
     queryKey: ["student-details"],
-    queryFn: getProfile,
+    queryFn: API.getProfile,
   })
   const apps = useQuery({
     queryKey: ["student-applications"],
-    queryFn: allApps,
+    queryFn: API.getAllStudentApplications,
   })
 
-  if (classes.isLoading || profile.isLoading) {
+  if (classes.isLoading || profile.isLoading || apps.isLoading) {
     return <>Loading</>
   }
 

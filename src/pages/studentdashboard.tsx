@@ -1,28 +1,27 @@
 import Head from "next/head"
 import { useQuery } from "react-query"
-import { allApps, managerPool } from "../../services/apiSection"
 import Sections from "@/components/sections"
 import Logout from "@/components/logout"
-import { getProfile } from "../../services/apiLogin"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 import NotSubmitted from "@/components/notsubmitted"
+import { API } from "@/lib/api"
 
 export default function StudentDashboard(this: any) {
   const classes = useQuery({
     queryKey: ["student-sections"],
-    queryFn: managerPool,
+    queryFn: API.getManagerPool,
   })
   const profile = useQuery({
     queryKey: ["student-details"],
-    queryFn: getProfile,
+    queryFn: API.getProfile,
   })
   const apps = useQuery({
     queryKey: ["student-applications"],
-    queryFn: allApps,
+    queryFn: API.getAllStudentApplications,
   })
 
   if (profile.isLoading || classes.isLoading) {
