@@ -10,6 +10,9 @@ import {
 } from "@/components/ui/alert-dialog"
 import { useMutation, useQueryClient } from "react-query"
 import { API } from "@/lib/api"
+import { Input } from "./ui/input"
+import { Label } from "./ui/label"
+import { Textarea } from "./ui/textarea"
 
 interface ModalProps {
   isOpen: boolean
@@ -69,7 +72,6 @@ function Modal(props: ModalProps) {
     onClose()
   }
 
-  let count
   return (
     <AlertDialog open={true}>
       <AlertDialogContent>
@@ -83,20 +85,46 @@ function Modal(props: ModalProps) {
 
         <div
           className={
-            " text-sm space-y-4 text-cyan-500 dark:text-cyan-400 w-full items-center gap-1.5 bg-cyan-900"
+            "text-sm space-y-4 text-cyan-500 dark:text-cyan-400 w-full items-center gap-1.5 space-y-5 bg-cyan-900"
           }
         >
-          {student.email}
-          {application.preferences.map((data: any) => (
-            <div>{data}</div>
-          ))}
-          <div>{application.grade320}</div>
           <div>
-            {application.taken320
-              ? student.name + " has taken 320"
-              : student.name + " has not taken 320"}
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" disabled type="email" value={student.email} />
           </div>
-          <div>{application.references}</div>
+          <div>
+            <Label htmlFor="preferences">Preferences</Label>
+            <Input
+              id="preferences"
+              disabled
+              type="text"
+              value={application.preferences.join("")}
+            />
+          </div>
+          <div>
+            <Label htmlFor="taken320">Taken 320?</Label>
+            <Input
+              id="taken320"
+              disabled
+              type="text"
+              value={application.taken320 ? "Yes" : "No"}
+            />
+          </div>
+          {application.taken320 && (
+            <div>
+              <Label htmlFor="grade320">Grade in 320</Label>
+              <Input
+                id="grade320"
+                disabled
+                type="text"
+                value={application.grade320}
+              />
+            </div>
+          )}
+          <div>
+            <Label htmlFor="taken320">References</Label>
+            <Textarea id="taken320" disabled value={application.references} />
+          </div>
         </div>
 
         <AlertDialogFooter>
