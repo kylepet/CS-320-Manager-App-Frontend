@@ -34,9 +34,9 @@ export const API = {
   async submitStudentApplication(body: {
     email: string
     CS320taken: boolean
-    references: Array<string>
+    references: string[]
     cs320grade: string
-    preference: Array<string>
+    preference: string[]
   }) {
     const response = await post("/studentApps/submit", body)
     return await response.json()

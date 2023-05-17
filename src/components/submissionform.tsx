@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useMutation, useQuery, useQueryClient } from "react-query"
 import { MultiSelect, Option } from "react-multi-select-component"
-import { ChangeEvent, useEffect, useState } from "react"
+import {ChangeEvent, isValidElement, useEffect, useState} from "react"
 import { useRouter } from "next/router"
 import { API } from "@/lib/api"
 
@@ -29,6 +29,7 @@ export default function SubmissionForm(props: any) {
       await queryClient.invalidateQueries({ queryKey: ["submit"] })
     },
     onError: (error: any) => {
+      window.location.reload()
       console.log(error.response.data.message)
       queryClient.invalidateQueries({ queryKey: ["submit"] })
     },
@@ -100,9 +101,7 @@ export default function SubmissionForm(props: any) {
       cs320grade: grade,
       preference: prefs,
     })
-    router.push({
-      pathname: "/studentdashboard",
-    })
+    window.location.reload()
   }
 
   return (
@@ -199,6 +198,9 @@ export default function SubmissionForm(props: any) {
             </div>
           </div>
         </AlertDialogHeader>
+          <div className={"text-left items-start text-red-500"} style={{ visibility: !invalidData ? "hidden" : "visible"}}>
+            Make sure you have selected sections, taken 320, and received an A.
+          </div>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction disabled={invalidData} onClick={submitApplication}>
