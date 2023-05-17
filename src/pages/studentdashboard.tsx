@@ -41,13 +41,13 @@ export default function StudentDashboard(this: any) {
       </Head>
       <main className="mt-8 space-y-2">
         <div className="max-w-lg mx-auto space-y-2 text-black text-lg font-semibold">
-        <Collapsible>
-        <CollapsibleTrigger className="w-half block">
+        <Collapsible open={true}>
+        <CollapsibleTrigger className="w-half block" data-state='open'>
           <div className="flex items-center bg-cyan-400 px-6 py-4 justify-between text-black">
           {profile.data.username}
           </div>
         </CollapsibleTrigger>
-        <CollapsibleContent>
+        <CollapsibleContent data-state='open'>
           <div className="px-3 py-3 bg-white w-half">
             {enrolledIndex !== -1 ? 
             <li className="bg-green-100 px-3 py-2 rounded flex justify-between items-center">
