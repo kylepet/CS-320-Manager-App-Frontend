@@ -98,7 +98,7 @@ function Modal(props: ModalProps) {
               id="preferences"
               disabled
               type="text"
-              value={application.preferences.join("")}
+              value={application.preferences.join(", ")}
             />
           </div>
           <div>
