@@ -1,15 +1,14 @@
 import { Button } from "@/components/ui/button";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import {ACCESS_TOKEN_COOKIE_NAME} from "@/lib/consts"
+import { AUTH } from "@/lib/auth";
 
 export default function Logout(this: any) {
     const router = useRouter();
     function logout() {
-        Cookies.remove(ACCESS_TOKEN_COOKIE_NAME);
-        router.push({
-            pathname: "/",
-        });
+      AUTH.clear();
+      router.push({
+          pathname: "/",
+      });
     }
 
   return (

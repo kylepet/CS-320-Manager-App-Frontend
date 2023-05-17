@@ -5,7 +5,6 @@ import { allApps, managerPool, sectionDetails } from "../../services/apiSection"
 import StudentSection from "@/components/sectionStudent";
 import Sections from "@/components/sections";
 import Logout from "@/components/logout";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import SubmissionForm from "@/components/submissionform";
 import { getProfile } from "../../services/apiLogin";

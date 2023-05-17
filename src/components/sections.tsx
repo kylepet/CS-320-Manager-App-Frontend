@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import StudentSection from "./sectionStudent";
-import Cookies from "js-cookie";
 import Accepted from "./accepted";
 import Rejected from "./rejected";
 import Pending from "./pending";
@@ -42,7 +41,6 @@ export default function Sections(this: any) {
   console.log(preferences);
    console.log(apps);
    console.log(classes);
-   console.log(Cookies.get('access_token'));
 
   return (
     <>

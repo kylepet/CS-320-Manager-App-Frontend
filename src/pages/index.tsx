@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import styles from "@/styles/login.module.css";
 import {useMutation} from "react-query";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { login } from "../../services/apiLogin";
-import {ACCESS_TOKEN_COOKIE_NAME} from "@/lib/consts";
+import { AUTH } from "@/lib/auth";
 
 export default function Home() {
   const router = useRouter();
@@ -18,7 +17,7 @@ export default function Home() {
   const mutation = useMutation({
     mutationFn: login,
     onSuccess: async (data) => {
-      Cookies.set(ACCESS_TOKEN_COOKIE_NAME, data.access_token);
+      AUTH.set(data.access_token);
 
       // If the user is a student, we redirect to the student dashboard.
       // Otherwise, redirect to the student dashboard.
