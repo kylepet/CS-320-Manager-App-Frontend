@@ -1,74 +1,74 @@
-import Head from "next/head";
-import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
-import { Button } from "@/components/ui/button";
+import Head from "next/head"
+import { ExclamationCircleIcon } from "@heroicons/react/24/solid"
+import { Button } from "@/components/ui/button"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { Check, XIcon } from "lucide-react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { getProfile } from "../../services/apiLogin";
-import { sectionDetails, managerPool } from "../../services/apiSection";
-import Logout from "@/components/logout";
-import { allApplications, capChange } from "../../services/apiSubmit";
-import { useState } from "react";
-import Modal from "../components/acceptStudentModal";
+} from "@/components/ui/collapsible"
+import { Check, XIcon } from "lucide-react"
+import { useMutation, useQuery, useQueryClient } from "react-query"
+import { getProfile } from "../../services/apiLogin"
+import { sectionDetails, managerPool } from "../../services/apiSection"
+import Logout from "@/components/logout"
+import { allApplications, capChange } from "../../services/apiSubmit"
+import { useState } from "react"
+import Modal from "../components/acceptStudentModal"
 
 export default function Dashboard() {
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
-  const [inputs, setInputs] = useState({ capChange: 0 });
+  const [inputs, setInputs] = useState({ capChange: 0 })
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
-  };
+    const name = event.target.name
+    const value = event.target.value
+    setInputs((values) => ({ ...values, [name]: value }))
+  }
 
   const allApplicationsQuery = useQuery({
     queryKey: ["student-apps-all-applications"],
     queryFn: allApplications,
-  });
+  })
   const managerPoolQuery = useQuery({
     queryKey: ["manager-pool"],
     queryFn: managerPool,
-  });
+  })
   const getProfileQuery = useQuery({
     queryKey: ["profile"],
     queryFn: getProfile,
-  });
+  })
   const sectionDetailsQuery = useQuery({
     queryKey: ["sections"],
     queryFn: sectionDetails,
-  });
+  })
 
   const changeCap = useMutation({
     mutationFn: capChange,
     onSuccess: async () => {
       // Invalidate and refetch
-      console.log("Cap changed");
+      console.log("Cap changed")
     },
     onError: (error: any) => {
-      console.log(error.response.data.message);
+      console.log(error.response.data.message)
     },
-  });
+  })
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false)
   function handleCloseModal() {
-    setIsModalOpen(false);
+    setIsModalOpen(false)
   }
 
-  const [accepted, setAccepted] = useState(true);
+  const [accepted, setAccepted] = useState(true)
 
   function denyButton() {
-    setAccepted(false);
-    setIsModalOpen(true);
+    setAccepted(false)
+    setIsModalOpen(true)
   }
 
   function acceptButton() {
-    setAccepted(true);
-    setIsModalOpen(true);
+    setAccepted(true)
+    setIsModalOpen(true)
   }
 
   if (
@@ -77,31 +77,29 @@ export default function Dashboard() {
     getProfileQuery.isLoading ||
     sectionDetailsQuery.isLoading
   ) {
-    return <>Loading</>;
+    return <>Loading</>
   }
 
   const mySections = managerPoolQuery.data.filter(
     (section: any) => section.professor.email == getProfileQuery.data.email
-  );
+  )
 
-  console.log(mySections);
   const otherSections = managerPoolQuery.data.filter(
     (section: any) => section.professor.email != getProfileQuery.data.email
-  );
-  console.log(otherSections);
+  )
 
   function submitCapChange() {
     changeCap.mutate({
       profEmail: getProfileQuery.data.email,
       capChange: inputs.capChange,
-    });
+    })
 
     queryClient.invalidateQueries({
       queryKey: ["student-apps-all-applications"],
-    });
-    queryClient.invalidateQueries({ queryKey: ["manager-pool"] });
-    queryClient.invalidateQueries({ queryKey: ["profile"] });
-    queryClient.invalidateQueries({ queryKey: ["sections"] });
+    })
+    queryClient.invalidateQueries({ queryKey: ["manager-pool"] })
+    queryClient.invalidateQueries({ queryKey: ["profile"] })
+    queryClient.invalidateQueries({ queryKey: ["sections"] })
   }
 
   return (
@@ -288,7 +286,7 @@ export default function Dashboard() {
                               </div>
                             </span>
                           </li>
-                        );
+                        )
                       })}
                       <ul className="space-y-2">
                         <h1 className={"pt-2"}>Enrolled</h1>
@@ -320,5 +318,5 @@ export default function Dashboard() {
         </div>
       </main>
     </>
-  );
+  )
 }

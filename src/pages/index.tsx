@@ -1,57 +1,54 @@
-import React, { useState } from "react";
-import styles from "@/styles/login.module.css";
-import {useMutation} from "react-query";
-import { useRouter } from "next/router";
-import { login } from "../../services/apiLogin";
-import { AUTH } from "@/lib/auth";
+import React, { useState } from "react"
+import styles from "@/styles/login.module.css"
+import { useMutation } from "react-query"
+import { useRouter } from "next/router"
+import { login } from "../../services/apiLogin"
+import { AUTH } from "@/lib/auth"
 
 export default function Home() {
-  const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const router = useRouter()
+  const [errorMessage, setErrorMessage] = useState("")
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
   const studentDashboard = "/studentdashboard"
   const profDashboard = "/dashboard"
-
 
   const mutation = useMutation({
     mutationFn: login,
     onSuccess: async (data) => {
-      AUTH.set(data.access_token);
+      AUTH.set(data.access_token)
 
       // If the user is a student, we redirect to the student dashboard.
       // Otherwise, redirect to the student dashboard.
-      const pathname = data.isStudent ? studentDashboard : profDashboard;
+      const pathname = data.isStudent ? studentDashboard : profDashboard
 
-      router
-        .push({ pathname })
-        .then(() => {
-          router.reload();
-        });
+      router.push({ pathname }).then(() => {
+        router.reload()
+      })
     },
     onError: (error: any) => {
-      setErrorMessage(error.response.data.message);
+      setErrorMessage(error.response.data.message)
     },
-  });
+  })
 
   const handleUsernameChange = (event: {
-    target: { value: React.SetStateAction<string> };
+    target: { value: React.SetStateAction<string> }
   }) => {
-    setUsername(event.target.value);
-  };
+    setUsername(event.target.value)
+  }
   const handlePasswordChange = (event: {
-    target: { value: React.SetStateAction<string> };
+    target: { value: React.SetStateAction<string> }
   }) => {
-    setPassword(event.target.value);
-  };
+    setPassword(event.target.value)
+  }
 
   const handleSubmit = (event: { preventDefault: () => void }) => {
-    event.preventDefault();
+    event.preventDefault()
     return mutation.mutate({
       email: username,
       password: password,
-    });
-  };
+    })
+  }
 
   return (
     <>
@@ -92,9 +89,9 @@ export default function Home() {
                 Login
               </button>
               {errorMessage && (
-                <div className={styles.error}><p>
-                  Wrong Username or Password 
-                </p></div>
+                <div className={styles.error}>
+                  <p>Wrong Username or Password</p>
+                </div>
               )}
             </div>
           </div>
@@ -102,5 +99,5 @@ export default function Home() {
         <p />
       </main>
     </>
-  );
+  )
 }

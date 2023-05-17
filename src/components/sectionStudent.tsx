@@ -1,14 +1,8 @@
-import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
-import { Trash, Check } from "lucide-react";
-import { Button } from "./ui/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "./ui/collapsible";
-import Accepted from "./accepted";
-import Rejected from "./capreached";
-import Pending from "./pending";
+} from "./ui/collapsible"
 
 export default function StudentSection(props: any) {
   return (
@@ -23,7 +17,6 @@ export default function StudentSection(props: any) {
               <div className="text-cyan-950 font-semibold">
                 Enrolled: {`${props.enrolled.length} / ${props.cap}`}
               </div>
-
             </div>
           </div>
         </CollapsibleTrigger>
@@ -34,7 +27,9 @@ export default function StudentSection(props: any) {
                 <div className="bg-pink-400 rounded px-2 py-2">
                   <div>Schedule:</div>
                   <div>
-                    {props.schedule.map((e: any) => <div>{e}</div>)}
+                    {props.schedule.map((e: any) => (
+                      <div>{e}</div>
+                    ))}
                   </div>
                 </div>
                 <li className="bg-cyan-100 px-3 py-2 rounded flex justify-between items-center">
@@ -48,5 +43,5 @@ export default function StudentSection(props: any) {
         </CollapsibleContent>
       </Collapsible>
     </>
-  );
+  )
 }
