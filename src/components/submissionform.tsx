@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useMutation, useQuery, useQueryClient } from "react-query"
 import { MultiSelect, Option } from "react-multi-select-component"
-import {ChangeEvent, isValidElement, useEffect, useState} from "react"
+import { ChangeEvent, isValidElement, useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { API } from "@/lib/api"
 
@@ -198,9 +198,12 @@ export default function SubmissionForm(props: any) {
             </div>
           </div>
         </AlertDialogHeader>
-          <div className={"text-left items-start text-red-500"} style={{ visibility: !invalidData ? "hidden" : "visible"}}>
-            Make sure you have selected sections, taken 320, and received an A.
-          </div>
+        <div
+          className={"text-left items-start text-red-500"}
+          style={{ visibility: !invalidData ? "hidden" : "visible" }}
+        >
+          Make sure you have selected sections, taken 320, and received an A.
+        </div>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction disabled={invalidData} onClick={submitApplication}>

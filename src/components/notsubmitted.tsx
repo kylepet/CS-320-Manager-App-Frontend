@@ -1,6 +1,12 @@
 import SubmissionForm from "./submissionform"
 
+/*displays a component which either allows you to submit a form or not depending on 
+if you're supposed to submit, or if the application status is supposed to be displayed
+*/
 export default function NotSubmitted(props: any) {
+  /*Using classes from tailwind to display a purple background, round corners,
+    display in the flex style, and move text to the left and right, with the span
+    tag to display not submitted text, and a button depending on where the component is used. */
   return (
     <div>
       {props.section ? (
