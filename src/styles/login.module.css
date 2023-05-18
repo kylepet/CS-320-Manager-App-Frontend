@@ -30,7 +30,7 @@
 .wrapper {
   width: 500px;
   height: 400px;
-  background: #f446e3;
+  background: #63C5DA;
   border-radius: 5px;
   border: 2px solid #baf3ff;
   padding: 25px 25px 25px;
@@ -39,13 +39,13 @@
 }
 
 .wrapper h2 {
-  color: black;
+  color: white;
   font-size: 28px;
   text-align: center;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 .wrapper h3 {
-  color: black;
+  color: white;
   font-size: 15px;
   text-align: left;
   font-family: Georgia, "Times New Roman", Times, serif;
@@ -86,7 +86,7 @@
   top: 5px;
   width: 450px;
   align-items: center;
-  background: #24afa8;
+  background: #48AAAD;
   border-radius: 5px;
   border: 2px solid #baf3ff;
   padding: 10px 10px 10px;
@@ -96,7 +96,7 @@
   top: 25px;
   width: 450px;
   align-items: center;
-  background: #24afa8;
+  background: #48AAAD;
   border-radius: 5px;
   border: 2px solid #baf3ff;
   padding: 10px 10px 10px;
