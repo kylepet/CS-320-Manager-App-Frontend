@@ -170,7 +170,7 @@ export default function Dashboard() {
                         <li className="bg-yellow-100 px-3 py-2 rounded flex justify-between items-center">
                           <span className="flex justify-between items-center">
                             <ExclamationCircleIcon className="h-4 w-4 mr-1 text-yellow-500" />
-                            {data.student.name}
+                            {data.student?.name}
                           </span>
                           <span className="space-x-2">
                             <Button
