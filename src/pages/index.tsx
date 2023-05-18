@@ -5,6 +5,8 @@ import { useRouter } from "next/router"
 import { AUTH } from "@/lib/auth"
 import { API } from "@/lib/api"
 
+// The home page is the login screen. This is the entry point of the application. 
+// The user is directed to the student or professor dashboard on successful login.
 export default function Home() {
   const router = useRouter()
   const [errorMessage, setErrorMessage] = useState("")
