@@ -11,6 +11,7 @@ import {sectionDetails} from "../../services/apiSection";
 
 const inter = Inter({ subsets: ["latin"] });
 
+//Login page
 export default function Login() {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -19,7 +20,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const studentDashboard = "/studentdashboard"
   const profDashboard = "/dashboard"
-
+  //retrieval of components
 
   const mutation = useMutation({
     // queryKey: ["login"],
@@ -29,7 +30,7 @@ export default function Login() {
       console.log(data.access_token)
       Cookies.set("access_token", data.access_token);
 
-      // Check if student or prof
+      // Check if student or prof and redirect from login to student dashboard or professor dashboard
       if (data.isStudent){
         router
             .push({
@@ -50,40 +51,38 @@ export default function Login() {
       }
       queryClient.invalidateQueries({ queryKey: ["login"] });
     },
-    onError: (error: any) => {
+    onError: (error: any) => { //error handler 
       console.log(error.response.data.message);
       setErrorMessage(error.response.data.message);
       queryClient.invalidateQueries({ queryKey: ["login"] });
     },
   });
 
-  const handleUsernameChange = (event: {
+  const handleUsernameChange = (event: { //setting username
     target: { value: React.SetStateAction<string> };
   }) => {
     setUsername(event.target.value);
   };
-  const handlePasswordChange = (event: {
+  const handlePasswordChange = (event: { //setting password
     target: { value: React.SetStateAction<string> };
   }) => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event: { preventDefault: () => void }) => {
+  const handleSubmit = (event: { preventDefault: () => void }) => { //storage
     event.preventDefault();
     return mutation.mutate({
       email: username,
       password: password,
     });
-    // onSubmit({ email, password });
   };
 
-  return (
-    <>
+  return ( //HTML hard code for login page structures using the login.modules.css file
+    <> 
       <main className={styles.body}>
         <p>
           <title>CS320 Geocities Login GUI</title>
         </p>
-        {/* <div className="col -md-6 no no-gutters"> */}
         <form onSubmit={handleSubmit}>
           <div className={styles.center}>
             <div className={styles.wrapper}>
@@ -93,7 +92,6 @@ export default function Login() {
                 <h3>Username</h3>
                 <input
                   id="myUsername"
-                  // className="non-preview"
                   defaultValue={"username"}
                   value={username}
                   onChange={handleUsernameChange}
@@ -103,9 +101,7 @@ export default function Login() {
               <div className={styles.password}>
                 <h3>Password</h3>
                 <input
-                  // id="myPassword"
                   type="password"
-                  // className="non-preview"
                   defaultValue={"password"}
                   onChange={handlePasswordChange}
                   value={password}
@@ -124,11 +120,9 @@ export default function Login() {
                   Wrong Username or Password 
                 </p></div>
               )}
-              {/* <ThisButton onClick={handleSubmit}/> */}
             </div>
           </div>
         </form>
-        {/* </div> */}
         <p />
       </main>
     </>
