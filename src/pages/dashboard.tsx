@@ -1,74 +1,76 @@
-import Head from "next/head";
-import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
-import { Button } from "@/components/ui/button";
+import Head from "next/head"
+import { ExclamationCircleIcon } from "@heroicons/react/24/solid"
+import { Button } from "@/components/ui/button"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { Check, XIcon } from "lucide-react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { getProfile } from "../../services/apiLogin";
-import { sectionDetails, managerPool } from "../../services/apiSection";
-import Logout from "@/components/logout";
-import { allApplications, capChange } from "../../services/apiSubmit";
-import { useState } from "react";
-import Modal from "../components/acceptStudentModal";
+} from "@/components/ui/collapsible"
+import { Check, XIcon } from "lucide-react"
+import { useMutation, useQuery, useQueryClient } from "react-query"
+import Logout from "@/components/logout"
+import { useState } from "react"
+import Modal from "@/components/acceptStudentModal"
+import ChangeCapModal from "@/components/changeCapModal"
+import { API } from "@/lib/api"
 
 export default function Dashboard() {
-  const queryClient = useQueryClient();
-
-  const [inputs, setInputs] = useState({ capChange: 0 });
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
-  };
+  const queryClient = useQueryClient()
 
   const allApplicationsQuery = useQuery({
     queryKey: ["student-apps-all-applications"],
-    queryFn: allApplications,
-  });
+    queryFn: API.getAllStudentApplications,
+  })
   const managerPoolQuery = useQuery({
     queryKey: ["manager-pool"],
-    queryFn: managerPool,
-  });
+    queryFn: API.getManagerPool,
+  })
   const getProfileQuery = useQuery({
     queryKey: ["profile"],
-    queryFn: getProfile,
-  });
+    queryFn: API.getProfile,
+  })
   const sectionDetailsQuery = useQuery({
     queryKey: ["sections"],
-    queryFn: sectionDetails,
-  });
+    queryFn: API.getSections,
+  })
 
-  const changeCap = useMutation({
-    mutationFn: capChange,
-    onSuccess: async () => {
-      // Invalidate and refetch
-      console.log("Cap changed");
-    },
-    onError: (error: any) => {
-      console.log(error.response.data.message);
-    },
-  });
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // Accept Student Modal
+  const [isModalOpen, setIsModalOpen] = useState(false)
   function handleCloseModal() {
-    setIsModalOpen(false);
+    setIsModalOpen(false)
   }
 
-  const [accepted, setAccepted] = useState(true);
+  const [accepted, setAccepted] = useState(true)
 
   function denyButton() {
-    setAccepted(false);
-    setIsModalOpen(true);
+    setAccepted(false)
+    setIsModalOpen(true)
   }
 
   function acceptButton() {
-    setAccepted(true);
-    setIsModalOpen(true);
+    setAccepted(true)
+    setIsModalOpen(true)
+  }
+
+  // Change Cap Modal
+  const [isChangeCapModalOpen, setIsChangeCapModalOpen] = useState(false)
+  function openChangeCapModal() {
+    setIsChangeCapModalOpen(true)
+  }
+
+  function closeChangeCapModal() {
+    setIsChangeCapModalOpen(false)
+  }
+
+  async function handleCloseChangeCapModal() {
+    await queryClient.invalidateQueries({
+      queryKey: ["student-apps-all-applications"],
+    })
+    await queryClient.invalidateQueries({ queryKey: ["manager-pool"] })
+    await queryClient.invalidateQueries({ queryKey: ["profile"] })
+    await queryClient.invalidateQueries({ queryKey: ["sections"] })
+    closeChangeCapModal()
+    window.location.reload()
   }
 
   if (
@@ -77,32 +79,16 @@ export default function Dashboard() {
     getProfileQuery.isLoading ||
     sectionDetailsQuery.isLoading
   ) {
-    return <>Loading</>;
+    return <>Loading</>
   }
 
   const mySections = managerPoolQuery.data.filter(
     (section: any) => section.professor.email == getProfileQuery.data.email
-  );
+  )
 
-  console.log(mySections);
   const otherSections = managerPoolQuery.data.filter(
     (section: any) => section.professor.email != getProfileQuery.data.email
-  );
-  console.log(otherSections);
-
-  function submitCapChange() {
-    changeCap.mutate({
-      profEmail: getProfileQuery.data.email,
-      capChange: inputs.capChange,
-    });
-
-    queryClient.invalidateQueries({
-      queryKey: ["student-apps-all-applications"],
-    });
-    queryClient.invalidateQueries({ queryKey: ["manager-pool"] });
-    queryClient.invalidateQueries({ queryKey: ["profile"] });
-    queryClient.invalidateQueries({ queryKey: ["sections"] });
-  }
+  )
 
   return (
     <>
@@ -134,22 +120,16 @@ export default function Dashboard() {
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <div className="px-3 py-3 bg-white">
-                  <div>Modify Cap</div>
-                  <input
-                    id={data._id + "+modify-cap-input"}
-                    name="capChange"
-                    type="number"
-                    value={inputs.capChange}
-                    onChange={handleInputChange}
-                  ></input>
-                  <Button
-                    onClick={submitCapChange}
-                    id={data._id + "+modify-cap-button"}
-                    size="sm"
-                    variant="subtle"
-                  >
-                    <Check className="h-4 w-4" />
+                  <Button variant={"destructive"} onClick={openChangeCapModal}>
+                    Modify Cap
                   </Button>
+                  <ChangeCapModal
+                    sectionNumber={data.sectionNumber}
+                    currentCap={data.cap}
+                    isOpen={isChangeCapModalOpen}
+                    profEmail={getProfileQuery.data.email}
+                    onClose={handleCloseChangeCapModal}
+                  />
                   <div>Schedule</div>
                   <div className={"bg-pink-400 rounded px-2 py-2"}>
                     {data.schedule.map((data: any) => (
@@ -167,39 +147,57 @@ export default function Dashboard() {
                         ""
                       )}
                       {data.applications.map((data: any) => (
-                        <li className="bg-yellow-100 px-3 py-2 rounded flex justify-between items-center">
-                          <span className="flex justify-between items-center">
-                            <ExclamationCircleIcon className="h-4 w-4 mr-1 text-yellow-500" />
-                            {data.student?.name}
-                          </span>
-                          <span className="space-x-2">
-                            <Button
-                              onClick={acceptButton}
-                              id={data.student._id + "+accept"}
-                              size="sm"
-                              variant="subtle"
+                        <Collapsible>
+                          <CollapsibleTrigger className={"w-full items-start"}>
+                            <li className="bg-yellow-100 px-3 py-2 rounded flex justify-between items-center">
+                              <span className="flex justify-between items-center">
+                                <ExclamationCircleIcon className="h-4 w-4 mr-1 text-yellow-500" />
+                                {data.student.name}
+                              </span>
+                              <span className="space-x-2">
+                                <Button
+                                  onClick={acceptButton}
+                                  id={data.student._id + "+accept"}
+                                  size="sm"
+                                  variant="subtle"
+                                >
+                                  <Check className="h-4 w-4" />
+                                </Button>
+                                <Button
+                                  onClick={denyButton}
+                                  id={data.student._id}
+                                  size="sm"
+                                  variant="destructive"
+                                >
+                                  <XIcon className="h-4 w-4" />
+                                </Button>
+                                <Modal
+                                  application={data}
+                                  student={data.student}
+                                  isOpen={isModalOpen}
+                                  studentEmail={data.student.email}
+                                  profEmail={getProfileQuery.data.email}
+                                  accepted={accepted}
+                                  onClose={handleCloseModal}
+                                />
+                              </span>
+                            </li>
+                          </CollapsibleTrigger>
+                          <CollapsibleContent>
+                            <div
+                              className={
+                                "pl-8 pt-4 border-l border-r border-b pb-4 rounded-b"
+                              }
                             >
-                              <Check className="h-4 w-4" />
-                            </Button>
-                            <Button
-                              onClick={denyButton}
-                              id={data.student._id}
-                              size="sm"
-                              variant="destructive"
-                            >
-                              <XIcon className="h-4 w-4" />
-                            </Button>
-                            <Modal
-                              application={data}
-                              student={data.student}
-                              isOpen={isModalOpen}
-                              studentEmail={data.student.email}
-                              profEmail={getProfileQuery.data.email}
-                              accepted={accepted}
-                              onClose={handleCloseModal}
-                            />
-                          </span>
-                        </li>
+                              <div>
+                                Sections in order of preference:{" "}
+                                {data.preferences.join(", ")}
+                              </div>
+                              <div>320 Grade: {data.grade320}</div>
+                              <div>References: {data.references}</div>
+                            </div>
+                          </CollapsibleContent>
+                        </Collapsible>
                       ))}
                     </ul>
 
@@ -216,11 +214,26 @@ export default function Dashboard() {
                         data.name == undefined ? (
                           ""
                         ) : (
-                          <li className="bg-green-400 px-3 py-2 rounded flex justify-between items-center">
-                            <span className="flex justify-between items-center">
-                              {data.name}
-                            </span>
-                          </li>
+                          <Collapsible>
+                            <CollapsibleTrigger
+                              className={"w-full items-start"}
+                            >
+                              <li className="bg-green-400 px-3 py-2 rounded flex justify-between items-center">
+                                <span className="flex justify-between items-center">
+                                  {data.name}
+                                </span>
+                              </li>
+                            </CollapsibleTrigger>
+                            <CollapsibleContent>
+                              <div
+                                className={
+                                  "pl-8 pt-4 border-l border-r border-b pb-4 rounded-b"
+                                }
+                              >
+                                <div>{data.email}</div>
+                              </div>
+                            </CollapsibleContent>
+                          </Collapsible>
                         )
                       )}
                     </ul>
@@ -242,7 +255,7 @@ export default function Dashboard() {
               <CollapsibleTrigger className="w-full block">
                 <div className="flex items-center bg-cyan-400 px-6 py-4 justify-between">
                   <div className="text-cyan-950 font-semibold">
-                    Section {data.sectionNumber}
+                    {data.professor.name + ", Section: "} {data.sectionNumber}
                   </div>
                   {"Enrolled: " + data.enrolled.length + "/"}
                   {data.cap}
@@ -273,22 +286,33 @@ export default function Dashboard() {
                         // console.log(data.student.name, data.email);
                         // console.log(data, data.student);
                         return (
-                          <li className="bg-yellow-100 px-3 py-2 rounded flex justify-between items-center">
-                            <span className="flex justify-between items-center">
-                              <ExclamationCircleIcon className="h-4 w-4 mr-1 text-yellow-500 " />
-                              <div className={"grid columns-1"}>
+                          <Collapsible>
+                            <CollapsibleTrigger
+                              className={"w-full items-start"}
+                            >
+                              <li className="bg-yellow-100 px-3 py-3 rounded flex items-center">
+                                <span className="flex justify-between items-center">
+                                  <ExclamationCircleIcon className="h-4 w-4 mr-1 text-yellow-500 align-middle" />
+                                  {data.student.name}
+                                </span>
+                              </li>
+                            </CollapsibleTrigger>
+                            <CollapsibleContent>
+                              <div
+                                className={
+                                  "pl-8 pt-4 border-l border-r border-b pb-4 rounded-b"
+                                }
+                              >
                                 <div>
-                                  {data.student?.name}
-                                  {/* {data.student.name ? data.student.name : ""} */}
+                                  Sections in order of preference:{" "}
+                                  {data.preferences.join(", ")}
                                 </div>
-                                <div>
-                                  {data.email}
-                                  {/* {data.email ? data.email : ""} */}
-                                </div>
+                                <div>320 Grade: {data.grade320}</div>
+                                <div>References: {data.references}</div>
                               </div>
-                            </span>
-                          </li>
-                        );
+                            </CollapsibleContent>
+                          </Collapsible>
+                        )
                       })}
                       <ul className="space-y-2">
                         <h1 className={"pt-2"}>Enrolled</h1>
@@ -303,11 +327,26 @@ export default function Dashboard() {
                           data.name == undefined ? (
                             ""
                           ) : (
-                            <li className="bg-green-200 px-3 py-2 rounded flex justify-between items-center">
-                              <span className="flex justify-between items-center h-10">
-                                {data.name}
-                              </span>
-                            </li>
+                            <Collapsible>
+                              <CollapsibleTrigger
+                                className={"w-full bg-green-200 rounded"}
+                              >
+                                <li className="w-full bg-green-200  px-3 py-2 rounded flex justify-between items-center ">
+                                  <span className="flex justify-between items-center h-10 w-full">
+                                    {data.name}
+                                  </span>
+                                </li>
+                              </CollapsibleTrigger>
+                              <CollapsibleContent>
+                                <div
+                                  className={
+                                    "pl-8 pt-4 border-l border-r border-b pb-4 rounded-b"
+                                  }
+                                >
+                                  <div>{data.email}</div>
+                                </div>
+                              </CollapsibleContent>
+                            </Collapsible>
                           )
                         )}
                       </ul>
@@ -320,5 +359,5 @@ export default function Dashboard() {
         </div>
       </main>
     </>
-  );
+  )
 }
