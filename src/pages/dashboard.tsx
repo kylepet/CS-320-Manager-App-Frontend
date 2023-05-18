@@ -10,19 +10,12 @@ import { Check, XIcon } from "lucide-react"
 import { useMutation, useQuery, useQueryClient } from "react-query"
 import Logout from "@/components/logout"
 import { useState } from "react"
-import Modal from "../components/acceptStudentModal"
+import Modal from "@/components/acceptStudentModal"
+import ChangeCapModal from "@/components/changeCapModal"
 import { API } from "@/lib/api"
 
 export default function Dashboard() {
   const queryClient = useQueryClient()
-
-  const [inputs, setInputs] = useState({ capChange: 0 })
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const name = event.target.name
-    const value = event.target.value
-    setInputs((values) => ({ ...values, [name]: value }))
-  }
 
   const allApplicationsQuery = useQuery({
     queryKey: ["student-apps-all-applications"],
@@ -41,17 +34,7 @@ export default function Dashboard() {
     queryFn: API.getSections,
   })
 
-  const changeCap = useMutation({
-    mutationFn: API.changeCap,
-    onSuccess: async () => {
-      // Invalidate and refetch
-      console.log("Cap changed")
-    },
-    onError: (error: any) => {
-      console.log(error.response.data.message)
-    },
-  })
-
+  // Accept Student Modal
   const [isModalOpen, setIsModalOpen] = useState(false)
   function handleCloseModal() {
     setIsModalOpen(false)
@@ -67,6 +50,27 @@ export default function Dashboard() {
   function acceptButton() {
     setAccepted(true)
     setIsModalOpen(true)
+  }
+
+  // Change Cap Modal
+  const [isChangeCapModalOpen, setIsChangeCapModalOpen] = useState(false)
+  function openChangeCapModal() {
+    setIsChangeCapModalOpen(true)
+  }
+
+  function closeChangeCapModal() {
+    setIsChangeCapModalOpen(false)
+  }
+
+  async function handleCloseChangeCapModal() {
+    await queryClient.invalidateQueries({
+      queryKey: ["student-apps-all-applications"],
+    })
+    await queryClient.invalidateQueries({ queryKey: ["manager-pool"] })
+    await queryClient.invalidateQueries({ queryKey: ["profile"] })
+    await queryClient.invalidateQueries({ queryKey: ["sections"] })
+    closeChangeCapModal()
+    window.location.reload()
   }
 
   if (
@@ -85,20 +89,6 @@ export default function Dashboard() {
   const otherSections = managerPoolQuery.data.filter(
     (section: any) => section.professor.email != getProfileQuery.data.email
   )
-
-  function submitCapChange() {
-    changeCap.mutate({
-      profEmail: getProfileQuery.data.email,
-      capChange: inputs.capChange,
-    })
-
-    queryClient.invalidateQueries({
-      queryKey: ["student-apps-all-applications"],
-    })
-    queryClient.invalidateQueries({ queryKey: ["manager-pool"] })
-    queryClient.invalidateQueries({ queryKey: ["profile"] })
-    queryClient.invalidateQueries({ queryKey: ["sections"] })
-  }
 
   return (
     <>
@@ -130,22 +120,16 @@ export default function Dashboard() {
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <div className="px-3 py-3 bg-white">
-                  <div>Modify Cap</div>
-                  <input
-                    id={data._id + "+modify-cap-input"}
-                    name="capChange"
-                    type="number"
-                    value={inputs.capChange}
-                    onChange={handleInputChange}
-                  ></input>
-                  <Button
-                    onClick={submitCapChange}
-                    id={data._id + "+modify-cap-button"}
-                    size="sm"
-                    variant="subtle"
-                  >
-                    <Check className="h-4 w-4" />
+                  <Button variant={"destructive"} onClick={openChangeCapModal}>
+                    Modify Cap
                   </Button>
+                  <ChangeCapModal
+                    sectionNumber={data.sectionNumber}
+                    currentCap={data.cap}
+                    isOpen={isChangeCapModalOpen}
+                    profEmail={getProfileQuery.data.email}
+                    onClose={handleCloseChangeCapModal}
+                  />
                   <div>Schedule</div>
                   <div className={"bg-pink-400 rounded px-2 py-2"}>
                     {data.schedule.map((data: any) => (
