@@ -1,6 +1,6 @@
-import React from "react"
+import * as React from 'react'
 import { render, fireEvent, waitFor } from "@testing-library/react"
-import Login from "./login.tsx"
+import Home from "@/pages/index"
 import { useRouter } from "next/router"
 import router from "next/dist/server/router"
 
@@ -19,7 +19,7 @@ jest.mock("next/router", () => ({
 
 describe("Login", () => {
   it("submits the login form and redirects to the appropriate dashboard", async () => {
-    const { getByLabelText, getByText } = render(<Login />)
+    const { getByLabelText, getByText } = render(<Home/>)
 
     const usernameInput = getByLabelText("Username")
     const passwordInput = getByLabelText("Password")
@@ -39,7 +39,7 @@ describe("Login", () => {
     fireEvent.click(loginButton)
 
     await waitFor(() => {
-      expect(Login).toHaveBeenCalledWith({
+      expect(Home).toHaveBeenCalledWith({
         email: "testuser",
         password: "testpassword",
       })

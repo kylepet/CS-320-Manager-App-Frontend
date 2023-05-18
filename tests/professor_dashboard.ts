@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import Dashboard from "./dashboard.tsx";
+import Dashboard from "@/pages/dashboard";
 import '@testing-library/jest-dom/extend-expect';
 
 // Mock the API functions used in the component

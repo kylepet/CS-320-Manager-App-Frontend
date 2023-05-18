@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { QueryClientProvider, QueryClient, useQuery } from 'react-query';
-import StudentDashboard from './studentdashboard';
+import StudentDashboard from '@/pages/studentdashboard';
 import { API } from '@/lib/api';
 
 jest.mock('@/lib/api', () => ({
@@ -9,11 +9,11 @@ jest.mock('@/lib/api', () => ({
     getManagerPool: jest.fn(),
     getProfile: jest.fn(),
     getAllStudentApplications: jest.fn(),
-  },
+  },       
 }));
 
 describe('StudentDashboard', () => {
-  let queryClient;
+  let queryClient: QueryClient;
 
   beforeAll(() => {
     queryClient = new QueryClient();
@@ -47,7 +47,6 @@ describe('StudentDashboard', () => {
     // Assert the rendered content based on the mocked responses
     expect(screen.getByText('Student Name')).toBeInTheDocument();
 
-    // TODO: Add more assertions to validate the rendered content
   });
 });
 
