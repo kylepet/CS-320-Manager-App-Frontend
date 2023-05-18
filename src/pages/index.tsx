@@ -12,10 +12,12 @@ export default function Home() {
   const [password, setPassword] = useState("")
   const studentDashboard = "/studentdashboard"
   const profDashboard = "/dashboard"
+  //retrieval of components
 
   const mutation = useMutation({
     mutationFn: API.signin,
     onSuccess: async (data) => {
+      // Invalidate and refetch
       AUTH.set(data.access_token)
 
       // If the user is a student, we redirect to the student dashboard.
@@ -27,21 +29,26 @@ export default function Home() {
       })
     },
     onError: (error: any) => {
+      //error handler
       setErrorMessage(error.response.data.message)
     },
   })
 
+  //setting username
   const handleUsernameChange = (event: {
     target: { value: React.SetStateAction<string> }
   }) => {
     setUsername(event.target.value)
   }
+
+  //setting password
   const handlePasswordChange = (event: {
     target: { value: React.SetStateAction<string> }
   }) => {
     setPassword(event.target.value)
   }
 
+  //storage
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault()
     return mutation.mutate({
@@ -51,6 +58,7 @@ export default function Home() {
   }
 
   return (
+    //HTML hard code for login page structures using the login.modules.css file
     <>
       <main className={styles.body}>
         <p>
