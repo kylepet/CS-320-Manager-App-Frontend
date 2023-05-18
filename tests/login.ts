@@ -9,7 +9,7 @@ jest.mock("../../services/apiLogin", () => ({
   login: jest.fn(),
 }));
 
-// Mock the useRouter hook
+//  the useRouter hook
 jest.mock("next/router", () => ({
   useRouter: () => ({
     push: jest.fn().mockResolvedValueOnce('default'),
