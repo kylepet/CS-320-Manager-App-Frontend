@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import Dashboard from "./dashboard.tsx";
+import Dashboard from "@/pages/dashboard";
 import '@testing-library/jest-dom/extend-expect';
 
 // Mock the API functions used in the component
@@ -20,7 +20,7 @@ describe("Dashboard", () => {
 
   afterEach(() => {
     jest.clearAllMocks();
-    queryClient.clear();
+    //queryClient.clear();
   });
 
   test("renders the dashboard correctly", async () => {
@@ -37,9 +37,7 @@ describe("Dashboard", () => {
     jest.spyOn(require("@/lib/api"), "getSections").mockImplementation(() => mockSectionDetails);
 
     render(
-      <typeof QueryClientProvider client = {queryClient}>
         <Dashboard />
-      </QueryClientProvider>
     );
 
     // Check if loading message is displayed
