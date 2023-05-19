@@ -38,7 +38,7 @@ export default function Home() {
     onError: (error: any) => {
       console.log("error")
       //error handler
-      setErrorMessage(error.response.data.message)
+      setErrorMessage(error.message)
     },
   })
 
