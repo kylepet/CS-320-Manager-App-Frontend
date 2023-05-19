@@ -32,7 +32,7 @@ export default function Home() {
     },
     onError: (error: any) => {
       //error handler
-      setErrorMessage(error.response.data.message)
+      setErrorMessage(error.message)
     },
   })
 
