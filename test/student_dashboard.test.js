@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import StudentDashboard from "@/pages/student-dashboard";
+import StudentDashboard from "@/pages/studentdashboard";
 import * as api from "@/lib/api";
 import '@testing-library/jest-dom/extend-expect';
 
