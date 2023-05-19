@@ -81,7 +81,7 @@ export default function Dashboard() {
   ) {
     return <>Loading</>
   }
-
+  console.log(managerPoolQuery.data)
   const mySections = managerPoolQuery.data.filter(
     (section: any) => section.professor.email == getProfileQuery.data.email
   )
