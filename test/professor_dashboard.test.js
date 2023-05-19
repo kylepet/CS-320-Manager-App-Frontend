@@ -50,6 +50,7 @@ describe("Dashboard", () => {
 
     // Check if the dashboard content is rendered correctly
     expect(screen.getByText(/Michael Davis's Sections/i)).toBeInTheDocument();
+    //not sure what text to out here actually
 
   });
 
