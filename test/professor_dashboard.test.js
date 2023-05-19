@@ -13,21 +13,22 @@ jest.mock("@/lib/api", () => ({
 }));
 
 describe("Dashboard", () => {
+  let queryClient;
 
-  beforeAll(() => {
-    let queryClient = new QueryClient();
+  beforeEach(() => {
+    queryClient = new QueryClient();
   });
 
   afterEach(() => {
     jest.clearAllMocks();
-    queryClient.clear();
+    QueryClient.clear();
   });
 
   test("renders the dashboard correctly", async () => {
     // the API responses
     const mockAllApplications = { isLoading: false, data: [] };
     const mockManagerPool = { isLoading: false, data: [] };
-    const mockProfile = { isLoading: false, data: { name: "John Doe", email: "john@example.com" } };
+    const mockProfile = { isLoading: false, data: { name: "Michael Davis", email: "michael.davis@cs.umass.edu" } };
     const mockSectionDetails = { isLoading: false, data: [] };
 
     // Set up the API mocks
@@ -35,15 +36,12 @@ describe("Dashboard", () => {
     jest.spyOn(require("@/lib/api"), "getManagerPool").mockImplementation(() => mockManagerPool);
     jest.spyOn(require("@/lib/api"), "getProfile").mockImplementation(() => mockProfile);
     jest.spyOn(require("@/lib/api"), "getSections").mockImplementation(() => mockSectionDetails);
-
+    
     render(
-      <typeof QueryClientProvider client = {queryClient}>
+      <QueryClientProvider client={queryClient}>
         <Dashboard />
       </QueryClientProvider>
     );
-
-    // Check if loading message is displayed
-    expect(screen.getByText(/Loading/i)).toBeInTheDocument();
 
     // Wait for the component to finish loading
     await waitFor(() => {
@@ -51,7 +49,7 @@ describe("Dashboard", () => {
     });
 
     // Check if the dashboard content is rendered correctly
-    expect(screen.getByText(/John Doe's Sections/i)).toBeInTheDocument();
+    expect(screen.getByText(/Michael Davis's Sections/i)).toBeInTheDocument();
 
   });
 

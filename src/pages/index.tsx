@@ -25,6 +25,7 @@ export default function Home() {
       // If the user is a student, we redirect to the student dashboard.
       // Otherwise, redirect to the student dashboard.
       const pathname = data.isStudent ? studentDashboard : profDashboard
+      const isStudent =  data.isStudent 
 
       router.push({ pathname }).then(() => {
         router.reload()
