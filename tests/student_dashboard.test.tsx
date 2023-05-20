@@ -9,13 +9,13 @@ import '@testing-library/jest-dom'
 
 jest.mock('next/router', () => require('next-router-mock'));
 
-// jest.mock('@/lib/api', () => ({
-//   API: {
-//     getManagerPool: jest.fn(),
-//     getProfile: jest.fn(),
-//     getAllStudentApplications: jest.fn(),
-//   },
-// }));
+jest.mock('../src/lib/api', () => ({
+  API: {
+    getManagerPool: jest.fn(),
+    getProfile: jest.fn(),
+    getAllStudentApplications: jest.fn(),
+  },
+}));
 
 // describe('StudentDashboard', () => {
 //   let queryClient;
@@ -56,5 +56,5 @@ jest.mock('next/router', () => require('next-router-mock'));
 
     // TODO: Add more assertions to validate the rendered content
   });
-//});
+//}); 
 
