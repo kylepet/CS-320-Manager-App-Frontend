@@ -47,5 +47,13 @@
     "@babel/preset-react": "^7.18.6",
     "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.5.1"
+  },
+  "jest": {
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(js|jsx)$",
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "jsx"
+    ]
   }
 }

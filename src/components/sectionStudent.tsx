@@ -1,3 +1,4 @@
+import React from "react"
 import {
   Collapsible,
   CollapsibleContent,
@@ -5,6 +6,13 @@ import {
 } from "./ui/collapsible"
 
 //Component for section information for an individual CS429 section.
+
+/**
+ *
+ * @param props A Javascript Object containing the section number, an array of enrolled students,
+ * the section cap, schedule information, the professor's name, and a JSX component containing the status.
+ * @returns
+ */
 export default function StudentSection(props: any) {
   /* Uses a collapsible from Radix UI to display section information in a clean way.
   In general, uses different shades of cyan to display the collapsible part itself

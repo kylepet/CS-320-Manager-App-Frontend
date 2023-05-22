@@ -1,4 +1,9 @@
+import React from "react"
 //Component which contains an accept message when accepted into a course.
+/**
+ *
+ * @returns {JSX} Static component which displays the accepted status for a course.
+ */
 export default function Accepted() {
   return (
     /*Using classes from tailwind to display a green background, round corners,

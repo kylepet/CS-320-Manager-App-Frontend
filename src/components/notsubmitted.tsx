@@ -1,8 +1,15 @@
+import React from "react"
 import SubmissionForm from "./submissionform"
 
 /*displays a component which either allows you to submit a form or not depending on 
 if you're supposed to submit, or if the application status is supposed to be displayed
 */
+
+/**
+ *
+ * @param props Javascript object containing section, a boolean and sectionList, an array of strings.
+ * @returns {JSX} JSX indicating that an application was either not submitted in general, or to a particular section.
+ */
 export default function NotSubmitted(props: any) {
   /*Using classes from tailwind to display a purple background, round corners,
     display in the flex style, and move text to the left and right, with the span
