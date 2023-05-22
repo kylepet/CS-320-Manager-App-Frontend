@@ -18,6 +18,13 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "test/login.test.jsx",
+    "test/professor_dashboard.test.jsx",
+    "test/student_dashboard.test.jsx"
+  ],
   "exclude": ["node_modules"]
 }

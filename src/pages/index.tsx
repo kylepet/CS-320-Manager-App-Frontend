@@ -25,14 +25,20 @@ export default function Home() {
       // If the user is a student, we redirect to the student dashboard.
       // Otherwise, redirect to the student dashboard.
       const pathname = data.isStudent ? studentDashboard : profDashboard
+      const isStudent = data.isStudent
 
-      router.push({ pathname }).then(() => {
-        router.reload()
-      })
+      if (data.statusCode == 401) {
+        setErrorMessage("Wrong Username or Password")
+      } else {
+        router.push({ pathname }).then(() => {
+          router.reload()
+        })
+      }
     },
     onError: (error: any) => {
+      console.log("error")
       //error handler
-      setErrorMessage(error.response.data.message)
+      setErrorMessage(error.message)
     },
   })
 

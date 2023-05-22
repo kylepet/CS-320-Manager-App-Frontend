@@ -1,4 +1,10 @@
+import React from "react"
 //Component which displays the rejected status of an application.
+
+/**
+ *
+ * @returns {JSX} A static JSX component which displays the rejected status for a section
+ */
 export default function Rejected() {
   /*Using classes from tailwind to display a red background, round corners,
     display in the flex style, and move text to the left and right, with the span

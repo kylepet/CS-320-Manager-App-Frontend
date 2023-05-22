@@ -95,6 +95,9 @@ export const API = {
   // Login.
   async signin(body: any) {
     const response = await post("/signin", body)
+    if (response.status !== 200) {
+      throw await response.json()
+    }
     return await response.json()
   },
 }

@@ -1,3 +1,4 @@
+import React from "react"
 import { Button } from "@/components/ui/button"
 import {
   AlertDialog,
@@ -17,10 +18,17 @@ import { ChangeEvent, isValidElement, useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { API } from "@/lib/api"
 
+/**
+ *
+ * @param props A Javascript Object containing a list of all sections to apply to
+ * @returns {JSX} A JSX component which serves as a modal allowing one to submit
+ * section data.
+ */
 export default function SubmissionForm(props: any) {
   const router = useRouter()
   const queryClient = useQueryClient()
 
+  //API call to submit form data
   const submitApp = useMutation({
     mutationFn: API.submitStudentApplication,
     onSuccess: async () => {
@@ -35,6 +43,7 @@ export default function SubmissionForm(props: any) {
     },
   })
 
+  //Creating class selected list for the UI
   const options = props.sectionList
     ? props.sectionList.data.map((e: any) => {
         return { label: e.sectionNumber, value: e.sectionNumber }
@@ -45,6 +54,7 @@ export default function SubmissionForm(props: any) {
     setSelected(selected)
   }
 
+  //Get student informatoin
   const profile = useQuery({
     queryKey: ["student-details"],
     queryFn: API.getProfile,
