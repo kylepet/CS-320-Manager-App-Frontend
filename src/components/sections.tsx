@@ -1,3 +1,4 @@
+import React from "react"
 import StudentSection from "./sectionStudent"
 import Accepted from "./accepted"
 import Rejected from "./rejected"
@@ -6,6 +7,11 @@ import NotSubmitted from "./notsubmitted"
 import { useQuery } from "react-query"
 import { API } from "@/lib/api"
 import CapReached from "./capreached"
+
+/**
+ *
+ * @returns {JSX} JSX which represent the sections based on the data returned by the endpoints.
+ */
 
 //Component responsible for displaying all sections
 export default function Sections(this: any) {

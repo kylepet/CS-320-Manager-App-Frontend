@@ -3,6 +3,7 @@ import { VariantProps, cva } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
+//This file contains the code for the various buttons placed across each page.
 const buttonVariants = cva(
   "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 dark:hover:bg-cyan-800 dark:hover:text-cyan-100 disabled:opacity-50 dark:focus:ring-cyan-400 disabled:pointer-events-none dark:focus:ring-offset-cyan-900 data-[state=open]:bg-cyan-100 dark:data-[state=open]:bg-cyan-800",
   {

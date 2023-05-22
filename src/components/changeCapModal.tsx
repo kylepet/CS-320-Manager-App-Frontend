@@ -13,6 +13,13 @@ import { API } from "@/lib/api"
 import { Input } from "./ui/input"
 import { Label } from "./ui/label"
 
+//This component uses the alert-dialog component to change the course cap.
+/**
+ *
+ * @param props JSON containing sectionNumber, currentCap, profEmail, boolean containing if the modal is open
+ * and a function of what to do on closing the modal
+ * @returns {JSX} a modal in the form of a component to change the cap.
+ */
 function Modal(props: {
   sectionNumber: any
   currentCap: any
@@ -20,6 +27,7 @@ function Modal(props: {
   isOpen: boolean
   onClose: () => void
 }) {
+  //state to keep trach of the current change in the cap.
   const [inputs, setInputs] = useState({ capChange: 0 })
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name
@@ -27,6 +35,7 @@ function Modal(props: {
     setInputs((values) => ({ ...values, [name]: value }))
   }
 
+  //makes API post request to send data to the backend.
   const changeCap = useMutation({
     mutationFn: API.changeCap,
     onSuccess: async () => {},
@@ -39,6 +48,7 @@ function Modal(props: {
     return null
   }
 
+  //closes modal on submit
   function handleCloseModal(submit: boolean) {
     if (submit) {
       changeCap.mutate({
@@ -48,6 +58,8 @@ function Modal(props: {
     }
     props.onClose()
   }
+
+  //JSX containing the change cap itself.
 
   return (
     <AlertDialog open={true}>

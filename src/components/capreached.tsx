@@ -1,4 +1,10 @@
+import React from "react"
+
 //Component which display when the course cap is reached.
+/**
+ *
+ * @returns {JSX} static component which displays if the enrollment cap was reached in a course.
+ */
 export default function CapReached() {
   return (
     /*Using classes from tailwind to display a red background background, round corners,
