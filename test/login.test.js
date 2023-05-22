@@ -1,23 +1,45 @@
 import React from 'react'
 import { render, fireEvent, waitFor } from "@testing-library/react"
-import Home from "@/pages/index"
+import  Home  from "@/pages/index"
 import { handleSubmit } from "@/pages/index"
-import { useRouter } from "next/router"
+import { useRouter } from "/Users/sophiacox/Desktop/CS-320-Manager-App-Frontend/node_modules/next/dist/client/router.js"
 import { API } from "@/lib/api.ts"
-import signin from "@/lib/api"
+import signin from "@/lib/api.ts"
+import mockRouter from 'next-router-mock';
+
 
 jest.mock('next/router', () => require('next-router-mock'));
 // Mock the API functions used in the component
-jest.mock("@/lib/api.ts", () => ({
+jest.mock("/Users/sophiacox/Desktop/CS-320-Manager-App-Frontend/src/lib/api.ts", () => ({
   API: {
     signin: jest.fn(),
   },
 }));
 
-describe("Login", () => {
-  it("submits the login form and redirects to the appropriate dashboard", async () => {
+// jest.mock(API, () => ({
+//   API: {
+//     signin: jest.fn()
+//   }
+// }));
+
+describe ('next-router-mock', () => {
+  it('mocks the useRouter hook', async() => {
+    // Set the initial url:
+    mockRouter.push("/Users/sophiacox/Desktop/CS-320-Manager-App-Frontend/src/pages/index.tsx");
     
-    const { getByLabelText, getByText } = render(<Home/>) //renders username and password info from Home function called in index
+    // Render the component:
+    // render(<Home/>);
+    // expect(screen.getByRole('button')).toHaveText(
+    //   'The current route is: "/initial-path"'
+    // );
+
+
+// describe("Login", () => {
+//   it("submits the login form and redirects to the appropriate dashboard", async () => {
+    
+    // const { getByLabelText, getByText } = 
+    const homeReturnVar = Home() //renders username and password info from Home function called in index
+    const userTest = homeReturnVar.value
     const usernameInput = getByLabelText("username")
     const passwordInput = getByLabelText("password")
     const loginButton = getByText("button")
