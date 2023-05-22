@@ -32,14 +32,18 @@ Right now our file structure is divided into a few parts. The first is a node_mo
 As of now, the application consists of three pages. The first page, which is the entry point to our application, is our login screen, which can be reached at [http://localhost:8000](http://localhost:8000). Our login screen consists of a username and password field, which upon an appropriate combination of these two fields, brings the user to the respective page, instructor dashboard, or user dashboard.
 
 Picture of our login page:
+![login screen](https://github.com/TCarel01/CS-320-Manager-App-Frontend/assets/105895758/c1d074a7-b457-4ce1-984e-d34901ab3c22)
 
 Once Logged in, you will be redirected to the appropriate dashboard. Our user dashboard displays all sections, and the status of the student's application for each section, as well as containing all relevant information about all sections regarding the student separately from the sections. If the student has not submitted an application, then they will be prompted to do so under the always open collapsible denoted by the student's name. All sections will note that the student has not submitted an application to that section. Upon submitting an application, but not being accepted, the status under the student's name will change to that representing the sections which the student has submitted to, and all sections which the student has submitted to will change to the proper status of the application, whether it be reject, accept, pending, etc. All of these statuses are their own individual components, which are displayed through a singular sections component.
 
 Picture of our student dashboard page:
 
+![student dashboard](https://github.com/TCarel01/CS-320-Manager-App-Frontend/assets/105895758/c6b35a8a-b529-4ff3-917d-b66e3c167950)
+
 Finally, we have our instructor dashboard, containing all information relevant to that of the instructor. The instructor is able to view all students who have applied to their section, and change the status of the student's enrollment to accept or reject them. Once accepted or rejected, the student is either moved to the enrooled section, or removed entirely from the instructor's view. In addition, the instructor can change the course enrollment cap to whatever they please. The instructor can also view the information and enrollment status of other sections, but are unable to change them in the same way which they can change their own.
 
 Picture of the instructor dashboard page:
+![professor dashboard](https://github.com/TCarel01/CS-320-Manager-App-Frontend/assets/105895758/3f5e4857-f243-463a-b357-281c18a34682)
 
 ## Learn More
 
